@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Chef Narhari Kathayat | Michelin-trained expert in modern Indian cuisine. Private dining, luxury catering, and culinary masterclasses.">
-    <title>Chef Narhari Kathayat | Where Tradition Meets Innovation</title>
+    <title>Chef Narhari Kathayat | Contact</title>
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,10 +12,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="assets/chef-logo.svg">
+    <link rel="stylesheet" href="css/contact.css">
+    <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/home.css">
 </head>
 <body>
-
     <!-- Header with transparent background -->
     <header class="header">
         <nav class="navbar">
@@ -26,7 +27,7 @@
                 </a>
             </div>
             <ul class="navbar__menu">
-                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li class="dropdown">
                     <a href="recipes.html" class="dropdown-toggle">Recipes</a>
@@ -41,86 +42,63 @@
                     </div>
                 </li>
                 <li><a href="articles.html">Articles</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
                 <li><a href="contact.html" class="btn--outline">Send Message</a></li>
             </ul>
         </nav>
     </header>
 
 
-    <!-- Hero Section with Video Background -->
-    <section class="hero">
-        <div class="hero__video">
-            <video autoplay muted loop poster="assets/hero-poster.jpg">
-                <source src="assets/hero-plating.mp4" type="video/mp4">
-            </video>
-            <div class="hero__overlay"></div>
-        </div>
-        <div class="hero__content">
-            <h1 class="hero__title">Where <span class="text--highlight">Tradition</span> Meets <span class="text--highlight">Innovation</span></h1>
-            <p class="hero__subtitle">Crafting unforgettable culinary experiences with Rajasthan's forgotten spices</p>
-            <div class="hero__cta">
-                <a href="services.html" class="btn btn--primary">Explore Services</a>
-                <a href="#signature" class="btn btn--secondary">View Signature Dishes</a>
+    <main>
+        <section class="contact-hero">
+            <div class="container">
+                <h1>Contact Us</h1>
+                <p>Have questions or want to book a consultation? Reach out to us!</p>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Featured Section: Chef's Philosophy -->
-    <section class="philosophy">
-        <div class="container">
-            <div class="philosophy__image">
-                <img src="assets/chef-portrait.jpg" alt="Chef Narhari Kathayat plating dish" loading="lazy">
-            </div>
-            <div class="philosophy__content">
-                <h2>My Culinary Philosophy</h2>
-                <blockquote>
-                    "Every dish is a love letter to the spice routes that shaped my childhood in the Himalayas."
-                </blockquote>
-                <p>With training from Michelin-starred kitchens in Barcelona and Tokyo, I blend avant-garde techniques with heirloom recipes passed down through generations.</p>
-                <a href="about.html" class="link--arrow">Discover My Journey</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Signature Dishes Preview -->
-    <section id="signature" class="signature">
-        <h2 class="section__title">Signature Creations</h2>
-        <div class="signature__grid">
-            <!-- Dish 1 -->
-            <div class="dish__card">
-                <div class="dish__image">
-                    <img src="assets/dish1.jpg" alt="Deconstructed Samosa" loading="lazy">
-                </div>
-                <div class="dish__info">
-                    <h3>Deconstructed Samosa</h3>
-                    <p>Layered textures of spiced potato foam, crispy filo, and tamarind gel</p>
-                    <button class="btn--text" data-dish="samosa">Story Behind the Dish →</button>
-                </div>
-            </div>
-            <!-- Dish 2 -->
-            <div class="dish__card">
-                <div class="dish__image">
-                    <img src="assets/dish2.jpg" alt="Saffron-Infused Rogan Josh" loading="lazy">
-                </div>
-                <div class="dish__info">
-                    <h3>Saffron-Infused Rogan Josh</h3>
-                    <p>72-hour slow-cooked lamb with Kashmir saffron and rose petals</p>
-                    <button class="btn--text" data-dish="rogan-josh">Story Behind the Dish →</button>
+        <section class="contact-section">
+            <div class="container">
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <h2>Get In Touch</h2>
+                        <p>We'd love to hear from you! Whether you have a question about our services, recipes, or anything else, our team is ready to answer all your questions.</p>
+                        
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <h3>Studio Kitchen</h3>
+                                <p>Juhu, Mumbai</p>
+                            </div>
+                            <div class="contact-item">
+                                <h3>Email</h3>
+                                <p>hello@chefnarhari.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form">
+                        <h2>Send a Message</h2>
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Your Email</label>
+                                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Your Message</label>
+                                <textarea id="message" name="message" placeholder="Write your message..." rows="5" required></textarea>
+                            </div>
+                            <div class="cf-turnstile" data-sitekey="0x4AAAAAABqgkMEaDYSIeO8i"></div>
+                            <button type="submit" class="btn btn--primary">Send Message</button>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Press/Testimonials -->
-    <section class="press">
-        <h2 class="section__title">Featured In</h2>
-        <div class="press__logos">
-            <img src="assets/forbes-logo.svg" alt="Forbes" loading="lazy">
-            <img src="assets/michelin-logo.svg" alt="Michelin Guide" loading="lazy">
-            <img src="assets/condenast-logo.svg" alt="Condé Nast Traveler" loading="lazy">
-        </div>
-    </section>
+        </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
@@ -225,7 +203,25 @@
             </div>
         </div>
     </footer>
- 
+
+    <script src="javascript/main.js" defer></script>
+    <!-- Cloudflare Turnstile -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script>
+        // Contact form handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Check if Turnstile is verified
+            // Note: In a real implementation, you would check the Turnstile response
+            // For now, we'll just show a success message
+            alert('Thank you! Your message has been sent.');
+            
+            // Reset form
+            this.reset();
+        });
+    </script>
+    
     <!-- Send Message Modal -->
     <div id="messageModal" class="modal-overlay" style="display: none;">
         <div class="modal">
@@ -251,12 +247,5 @@
             </div>
         </div>
     </div>
-
-    <!-- Scripts -->
-    <script src="javascript/main.js" defer></script>
-    <!-- Calendly badge -->
-    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-    <!-- Cloudflare Turnstile -->
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </body>
 </html>

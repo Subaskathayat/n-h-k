@@ -3,30 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Chef Narhari Kathayat | Michelin-trained expert in modern Indian cuisine. Private dining, luxury catering, and culinary masterclasses.">
-    <title>Chef Narhari Kathayat | Where Tradition Meets Innovation</title>
-    <!-- Preconnect for performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="assets/chef-logo.svg">
+    <title>Articles | Chef Narhari Kathayat</title>
+    <link rel="stylesheet" href="css/articles.css">
+    <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/home.css">
 </head>
 <body>
-
-    <!-- Header with transparent background -->
+    <!-- Header/Navbar (copied from index.html for consistency) -->
     <header class="header">
         <nav class="navbar">
             <div class="navbar__logo">
-                <a href="/">
+                <a href="index.html">
                     <span class="logo-text">Narhari Kathayat</span>
                     <span class="logo-subtext">Chef & Culinary Artist</span>
                 </a>
             </div>
             <ul class="navbar__menu">
-                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li class="dropdown">
                     <a href="recipes.html" class="dropdown-toggle">Recipes</a>
@@ -40,89 +33,40 @@
                         <a href="recipes.html#rice">Rice Recipes</a>
                     </div>
                 </li>
-                <li><a href="articles.html">Articles</a></li>
+                <li><a href="articles.html" class="active">Articles</a></li>
                 <li><a href="contact.html">Contact</a></li>
                 <li><a href="contact.html" class="btn--outline">Send Message</a></li>
             </ul>
         </nav>
     </header>
-
-
-    <!-- Hero Section with Video Background -->
-    <section class="hero">
-        <div class="hero__video">
-            <video autoplay muted loop poster="assets/hero-poster.jpg">
-                <source src="assets/hero-plating.mp4" type="video/mp4">
-            </video>
-            <div class="hero__overlay"></div>
-        </div>
-        <div class="hero__content">
-            <h1 class="hero__title">Where <span class="text--highlight">Tradition</span> Meets <span class="text--highlight">Innovation</span></h1>
-            <p class="hero__subtitle">Crafting unforgettable culinary experiences with Rajasthan's forgotten spices</p>
-            <div class="hero__cta">
-                <a href="services.html" class="btn btn--primary">Explore Services</a>
-                <a href="#signature" class="btn btn--secondary">View Signature Dishes</a>
+    <main class="articles-main">
+        <section class="articles-hero">
+            <h1>Articles</h1>
+            <div class="articles-search-bar">
+                <input type="text" id="articleSearch" placeholder="Search articles...">
             </div>
-        </div>
-    </section>
-
-    <!-- Featured Section: Chef's Philosophy -->
-    <section class="philosophy">
-        <div class="container">
-            <div class="philosophy__image">
-                <img src="assets/chef-portrait.jpg" alt="Chef Narhari Kathayat plating dish" loading="lazy">
-            </div>
-            <div class="philosophy__content">
-                <h2>My Culinary Philosophy</h2>
-                <blockquote>
-                    "Every dish is a love letter to the spice routes that shaped my childhood in the Himalayas."
-                </blockquote>
-                <p>With training from Michelin-starred kitchens in Barcelona and Tokyo, I blend avant-garde techniques with heirloom recipes passed down through generations.</p>
-                <a href="about.html" class="link--arrow">Discover My Journey</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Signature Dishes Preview -->
-    <section id="signature" class="signature">
-        <h2 class="section__title">Signature Creations</h2>
-        <div class="signature__grid">
-            <!-- Dish 1 -->
-            <div class="dish__card">
-                <div class="dish__image">
-                    <img src="assets/dish1.jpg" alt="Deconstructed Samosa" loading="lazy">
+        </section>
+        <section class="articles-list" id="articlesList">
+            <article class="article-card" data-title="Dream To Be A Chef? Challenges And Demands Of The Profession, As Told By A Top Chef">
+                <img src="assets/article-chef-dream.jpg" alt="Dream To Be A Chef?" class="article-img">
+                <div class="article-content">
+                    <a href="#" class="article-title">Dream To Be A Chef? Challenges And Demands Of The Profession, As Told By A Top Chef</a>
+                    <p class="article-desc">The road to becoming a successful chef is paved with challenges, yet, the rewards of creating extraordinary food experiences can make it all worthwhile.</p>
+                    <div class="article-meta">Nov 03, 2024 17:38 IST</div>
                 </div>
-                <div class="dish__info">
-                    <h3>Deconstructed Samosa</h3>
-                    <p>Layered textures of spiced potato foam, crispy filo, and tamarind gel</p>
-                    <button class="btn--text" data-dish="samosa">Story Behind the Dish →</button>
+            </article>
+            <article class="article-card" data-title="Exclusive: Chef Tala Bashmi Gets Candid About Collaborations, Reinterpretations And Current Food Trends">
+                <img src="assets/article-tala-bashmi.jpg" alt="Chef Tala Bashmi Interview" class="article-img">
+                <div class="article-content">
+                    <a href="#" class="article-title">Exclusive: Chef Tala Bashmi Gets Candid About Collaborations, Reinterpretations And Current Food Trends</a>
+                    <p class="article-desc">Chef Interview: We recently had the chance to chat with celebrated Bahraini Chef Tala Bashmi about food trends, culinary reinterpretation and the best way to make poached eggs!</p>
+                    <div class="article-meta">Jan 31, 2024 16:35 IST</div>
                 </div>
-            </div>
-            <!-- Dish 2 -->
-            <div class="dish__card">
-                <div class="dish__image">
-                    <img src="assets/dish2.jpg" alt="Saffron-Infused Rogan Josh" loading="lazy">
-                </div>
-                <div class="dish__info">
-                    <h3>Saffron-Infused Rogan Josh</h3>
-                    <p>72-hour slow-cooked lamb with Kashmir saffron and rose petals</p>
-                    <button class="btn--text" data-dish="rogan-josh">Story Behind the Dish →</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Press/Testimonials -->
-    <section class="press">
-        <h2 class="section__title">Featured In</h2>
-        <div class="press__logos">
-            <img src="assets/forbes-logo.svg" alt="Forbes" loading="lazy">
-            <img src="assets/michelin-logo.svg" alt="Michelin Guide" loading="lazy">
-            <img src="assets/condenast-logo.svg" alt="Condé Nast Traveler" loading="lazy">
-        </div>
-    </section>
-
-    <!-- Footer -->
+            </article>
+            <!-- Add more articles here as needed -->
+        </section>
+    </main>
+    <!-- Footer (multi-section, as per requirements) -->
     <footer class="footer">
         <div class="footer__content">
             <div class="footer__section">
@@ -225,7 +169,7 @@
             </div>
         </div>
     </footer>
- 
+    
     <!-- Send Message Modal -->
     <div id="messageModal" class="modal-overlay" style="display: none;">
         <div class="modal">
@@ -252,11 +196,18 @@
         </div>
     </div>
 
-    <!-- Scripts -->
     <script src="javascript/main.js" defer></script>
-    <!-- Calendly badge -->
-    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
     <!-- Cloudflare Turnstile -->
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script>
+    // Article search functionality
+    document.getElementById('articleSearch').addEventListener('input', function() {
+        const query = this.value.toLowerCase();
+        document.querySelectorAll('.article-card').forEach(card => {
+            const title = card.getAttribute('data-title').toLowerCase();
+            card.style.display = title.includes(query) ? '' : 'none';
+        });
+    });
+    </script>
 </body>
 </html>

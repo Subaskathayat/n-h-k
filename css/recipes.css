@@ -1,0 +1,105 @@
+/* ===== RECIPES PAGE STYLES ===== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.recipes-hero {
+  padding: 8rem 0 4rem;
+  background: var(--light);
+  text-align: center;
+}
+
+.recipes-hero h1 {
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  color: var(--dark);
+}
+
+.recipes-hero p {
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin: 0 auto;
+  color: #666;
+}
+
+.recipes-section {
+  padding: 4rem 0;
+}
+
+.recipe-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.card {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: white;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+.card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.card:hover img {
+  transform: scale(1.1);
+}
+
+.card h3 {
+  font-size: 1.5rem;
+  margin: 1.5rem 1.5rem 0.5rem;
+  color: var(--dark);
+}
+
+.card p {
+  margin: 0 1.5rem 1.5rem;
+  color: #666;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 992px) {
+  .recipes-hero h1 {
+    font-size: 2.5rem;
+  }
+  
+  .recipes-hero p {
+    font-size: 1.1rem;
+  }
+  
+  .recipe-cards {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .recipes-hero {
+    padding: 6rem 0 3rem;
+  }
+  
+  .recipes-hero h1 {
+    font-size: 2rem;
+  }
+  
+  .recipes-section {
+    padding: 3rem 0;
+  }
+  
+  .recipe-cards {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
