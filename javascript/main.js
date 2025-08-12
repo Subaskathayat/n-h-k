@@ -251,8 +251,30 @@ document.addEventListener('DOMContentLoaded', function() {
   // Handle modal form submission with Web3Forms and Turnstile
   const messageForm = document.getElementById('messageForm');
   if (messageForm) {
+    // Add Turnstile to modal
+    let modalTurnstileVerified = false;
+    
+    // Initialize Turnstile for modal
+    if (typeof turnstile !== 'undefined') {
+      turnstile.render(messageForm.querySelector('.cf-turnstile'), {
+        sitekey: '0x4AAAAAABqgkMEaDYSIeO8i',
+        callback: function(token) {
+          modalTurnstileVerified = true;
+        },
+        'error-callback': function() {
+          modalTurnstileVerified = false;
+        }
+      });
+    }
+    
     messageForm.addEventListener('submit', function(e) {
       e.preventDefault();
+      
+      // Check if Turnstile is verified
+      if (!modalTurnstileVerified) {
+        alert('Please complete the CAPTCHA verification.');
+        return;
+      }
       
       // Get form data
       const formData = new FormData(this);
@@ -285,8 +307,14 @@ document.addEventListener('DOMContentLoaded', function() {
             modal.style.display = 'none';
             document.body.style.overflow = '';
           }
+          
+          // Reset Turnstile
+          modalTurnstileVerified = false;
+          if (typeof turnstile !== 'undefined') {
+            turnstile.reset();
+          }
         } else {
-          alert('There was an error sending your message. Please try again.');
+          alert(`There was an error sending your message: ${data.message || 'Please try again.'}`);
         }
       })
       .catch(error => {
@@ -330,12 +358,12 @@ document.addEventListener('DOMContentLoaded', function() {
           // Reset form
           contactForm.reset();
         } else {
-          alert('There was an error sending your message. Please try again.');
+          alert(`There was an error sending your message: ${data.message || 'Please try again.'}`);
         }
       })
       .catch(error => {
         console.error('Error:', error);
-        alert('There was an error sending your message. Please try again.');
+        alert('There was an error sending your message. Please check your connection and try again.');
       });
     });
   }
