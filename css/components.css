@@ -7,6 +7,8 @@
   --accent: #e2725b; /* Terracotta */
   --text-dark: #333333;
   --text-light: #ffffff;
+  /* Header height used for body top padding and mobile menu offset */
+  --header-height: 88px;
 }
 
 * {
@@ -24,6 +26,15 @@ body {
   color: var(--text-dark);
   line-height: 1.6;
   overflow-x: hidden;
+  /* Ensure content isn't hidden behind fixed header */
+  padding-top: var(--header-height);
+}
+
+/* Make anchored sections account for fixed header when scrolled into view */
+section[id],
+[data-scroll-anchor],
+.anchor-target {
+  scroll-margin-top: var(--header-height);
 }
 
 /* ===== TYPOGRAPHY ===== */
@@ -139,20 +150,30 @@ h1, h2, h3, h4 {
 .navbar__toggle span {
   display: block;
   width: 22px;
-  height: 2px;
+  height: 3px;
   background: var(--dark);
-  margin: 3px 0;
-  transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
+  margin: 4px 0;
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease, width 0.25s ease;
 }
 
+/* Subtle visual style: varied default widths with hover smoothing */
+.navbar__toggle span:nth-child(1) { width: 20px; }
+.navbar__toggle span:nth-child(2) { width: 14px; }
+.navbar__toggle span:nth-child(3) { width: 20px; }
+
+.navbar__toggle:hover span:nth-child(1),
+.navbar__toggle:hover span:nth-child(3) { width: 22px; }
+.navbar__toggle:hover span:nth-child(2) { width: 18px; }
+
 .navbar--open .navbar__toggle span:nth-child(1) {
-  transform: translateY(5px) rotate(45deg);
+  transform: translateY(6px) rotate(45deg);
 }
 .navbar--open .navbar__toggle span:nth-child(2) {
   opacity: 0;
 }
 .navbar--open .navbar__toggle span:nth-child(3) {
-  transform: translateY(-5px) rotate(-45deg);
+  transform: translateY(-6px) rotate(-45deg);
 }
 
 /* ===== NAVBAR SOCIAL LINKS ===== */
@@ -191,6 +212,8 @@ h1, h2, h3, h4 {
 
 /* ===== MOBILE MENU ===== */
 @media (max-width: 992px) {
+  /* Slightly smaller header on mobile */
+  :root { --header-height: 64px; }
   .navbar {
     padding: 1rem 5%;
   }
@@ -201,7 +224,7 @@ h1, h2, h3, h4 {
 
   .navbar__menu {
     position: fixed;
-    top: 70px;
+    top: var(--header-height);
     right: 0;
     left: 0;
     background: #fff;

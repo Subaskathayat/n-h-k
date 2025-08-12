@@ -3,6 +3,30 @@
  * Provides comprehensive form validation, security, accessibility, and UX improvements
  */
 
+'use strict';
+
+// Configuration constants
+const CONTACT_CONFIG = {
+    RATE_LIMIT: {
+        MAX_ATTEMPTS: 3,
+        WINDOW_MS: 5 * 60 * 1000 // 5 minutes
+    },
+    VALIDATION: {
+        NAME_MIN_LENGTH: 2,
+        NAME_MAX_LENGTH: 50,
+        EMAIL_MAX_LENGTH: 100,
+        SUBJECT_MAX_LENGTH: 100,
+        MESSAGE_MAX_LENGTH: 1000
+    },
+    WEB3FORMS: {
+        ACCESS_KEY: 'caf02768-f053-4c48-aad5-b9a5ace1b4eb',
+        ENDPOINT: 'https://api.web3forms.com/submit'
+    },
+    TURNSTILE: {
+        SITEKEY: '0x4AAAAAABqgkMEaDYSIeO8i'
+    }
+};
+
 class ContactFormHandler {
     constructor() {
         this.form = document.getElementById('contactForm');

@@ -1,357 +1,468 @@
-// ===== DOM Elements =====
-const navbar = document.querySelector('.header');
-const navbarMenu = document.querySelector('.navbar__menu');
-const navBarContainer = document.querySelector('.navbar');
-const navToggle = document.querySelector('.navbar__toggle');
-const primaryMenu = document.getElementById('primary-menu');
-const dishButtons = document.querySelectorAll('[data-dish]');
-const newsletterForm = document.querySelector('.newsletter');
-const sections = document.querySelectorAll('section');
+/**
+ * Main Application JavaScript
+ * Handles navigation, modals, animations, and core UI interactions
+ */
 
-// ===== Desktop Recipe Navigation =====
-document.querySelectorAll('.recipes-nav').forEach(nav => {
-  const mainLink = nav.querySelector('.nav-main');
-  
-  if (mainLink) {
-    mainLink.addEventListener('click', (e) => {
-      // If clicking on the main link, let it navigate
-      // The snippet will be shown on hover
-      return;
+'use strict';
+
+// ===== Configuration Constants =====
+const CONFIG = {
+  BREAKPOINTS: {
+    MOBILE: 992
+  },
+  SCROLL_THRESHOLD: 50,
+  ANIMATION: {
+    THRESHOLD: 0.1,
+    ROOT_MARGIN: '0px 0px -100px 0px'
+  },
+  TOAST_DURATION: 3000
+};
+
+// ===== Application Class =====
+class ChefWebsiteApp {
+  constructor() {
+    this.elements = this.initializeElements();
+    this.state = {
+      isMenuOpen: false,
+      isSubmitting: false
+    };
+    
+    this.init();
+  }
+
+  initializeElements() {
+    return {
+      navbar: document.querySelector('.header'),
+      navbarMenu: document.querySelector('.navbar__menu'),
+      navbarContainer: document.querySelector('.navbar'),
+      navToggle: document.querySelector('.navbar__toggle'),
+      primaryMenu: document.getElementById('primary-menu'),
+      dishButtons: document.querySelectorAll('[data-dish]'),
+      newsletterForm: document.querySelector('.newsletter'),
+      sections: document.querySelectorAll('section'),
+      recipeNavs: document.querySelectorAll('.recipes-nav'),
+      sendButtons: document.querySelectorAll('a[href="contact.html"].btn--outline'),
+      messageModal: document.getElementById('messageModal'),
+      messageForm: document.getElementById('messageForm')
+    };
+  }
+
+  init() {
+    this.setupNavigation();
+    this.setupModals();
+    this.setupAnimations();
+    this.setupNewsletterForm();
+    this.setupScrollEffects();
+    this.setupVideoOptimization();
+    this.setupCalendlyIntegration();
+    
+    console.log('Chef Website App initialized successfully');
+  }
+
+  // ===== Navigation Setup =====
+  setupNavigation() {
+    this.setupResponsiveNavbar();
+    this.setupRecipeNavigation();
+    this.setupStickyHeader();
+  }
+
+  setupResponsiveNavbar() {
+    const { navToggle, navbarContainer, primaryMenu } = this.elements;
+    
+    if (!navToggle || !navbarContainer || !primaryMenu) return;
+
+    // Toggle button click handler
+    navToggle.addEventListener('click', () => {
+      this.toggleMobileMenu();
+    });
+
+    // Close menu when clicking on links
+    primaryMenu.addEventListener('click', (e) => {
+      if (e.target.closest('a')) {
+        this.setMenuState(false);
+      }
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.state.isMenuOpen) {
+        this.setMenuState(false);
+      }
+    });
+
+    // Close menu on desktop resize
+    window.addEventListener('resize', this.debounce(() => {
+      if (window.innerWidth > CONFIG.BREAKPOINTS.MOBILE) {
+        this.setMenuState(false);
+      }
+    }, 250));
+  }
+
+  setupRecipeNavigation() {
+    // Recipe navigation dropdown handling
+    this.elements.recipeNavs.forEach(nav => {
+      const mainLink = nav.querySelector('.nav-main');
+      if (mainLink) {
+        // Navigation is handled by CSS hover, no JS needed
+        mainLink.addEventListener('click', () => {
+          // Allow normal navigation
+        });
+      }
+    });
+
+    // Close recipe snippets when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.recipes-nav')) {
+        document.querySelectorAll('.recipes-snippet').forEach(snippet => {
+          snippet.style.display = 'none';
+        });
+      }
     });
   }
-});
 
-// Close recipe snippets when clicking outside
-document.addEventListener('click', (e) => {
-  if (!e.target.closest('.recipes-nav')) {
-    document.querySelectorAll('.recipes-snippet').forEach(snippet => {
-      snippet.style.display = 'none';
+  setupStickyHeader() {
+    let ticking = false;
+    
+    const updateHeader = () => {
+      const { navbar } = this.elements;
+      if (navbar) {
+        navbar.classList.toggle('scrolled', window.scrollY > CONFIG.SCROLL_THRESHOLD);
+      }
+      ticking = false;
+    };
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(updateHeader);
+        ticking = true;
+      }
     });
   }
-});
 
-// ===== Sticky Header on Scroll =====
-window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 50);
-});
-
-// ===== Responsive Navbar (Hamburger) =====
-function setMenuState(isOpen) {
-  if (!navBarContainer || !navToggle || !primaryMenu) return;
-  navBarContainer.classList.toggle('navbar--open', isOpen);
-  navToggle.setAttribute('aria-expanded', String(isOpen));
-  // Prevent body scroll when menu open on mobile
-  if (isOpen && window.innerWidth <= 992) {
-    document.body.style.overflow = 'hidden';
-  } else {
-    document.body.style.overflow = '';
+  toggleMobileMenu() {
+    this.setMenuState(!this.state.isMenuOpen);
   }
-}
 
-if (navToggle && navBarContainer && primaryMenu) {
-  // Toggle on button click
-  navToggle.addEventListener('click', () => {
-    const open = !navBarContainer.classList.contains('navbar--open');
-    setMenuState(open);
-  });
-
-  // Close when any link in the menu is clicked
-  primaryMenu.addEventListener('click', (e) => {
-    if (e.target.closest('a')) {
-      setMenuState(false);
+  setMenuState(isOpen) {
+    const { navbarContainer, navToggle } = this.elements;
+    
+    if (!navbarContainer || !navToggle) return;
+    
+    this.state.isMenuOpen = isOpen;
+    navbarContainer.classList.toggle('navbar--open', isOpen);
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+    
+    // Manage body scroll for mobile
+    if (isOpen && window.innerWidth <= CONFIG.BREAKPOINTS.MOBILE) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
     }
-  });
+  }
 
-  // Close on Escape
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') setMenuState(false);
-  });
+  // ===== Modal Setup =====
+  setupModals() {
+    this.setupDishModals();
+    this.setupMessageModal();
+  }
 
-  // Close when resizing to desktop
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 992) setMenuState(false);
-  });
-}
+  setupDishModals() {
+    const { dishButtons } = this.elements;
+    
+    dishButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const dishName = button.getAttribute('data-dish');
+        this.openDishModal(dishName);
+      });
+    });
+  }
 
-// ===== Signature Dish Modals =====
-dishButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    const dishName = button.getAttribute('data-dish');
-    openDishModal(dishName);
-  });
-});
+  openDishModal(dishName) {
+    // Dish data - in production, this would come from a CMS/API
+    const dishData = {
+      'samosa': {
+        title: 'Deconstructed Samosa',
+        story: `This dish reimagines my grandmother's roadside samosa stall through molecular gastronomy. The potato foam is infused with 14 spices from her secret blend, while the tamarind gel replicates the chutney she served to me after school.`,
+        ingredients: ['Organic potatoes', 'Heirloom spices', 'Tamarind reduction', 'Filo crisp'],
+        pairing: 'Pairs beautifully with our Darjeeling First Flush Tea'
+      },
+      'rogan-josh': {
+        title: 'Saffron-Infused Rogan Josh',
+        story: 'Inspired by my apprenticeship in Kashmir, this 72-hour slow-cooked lamb incorporates saffron harvested by the same family I lived with in Pampore. The rose petals are hand-pressed from their garden.',
+        ingredients: ['New Zealand lamb rack', 'Kashmiri saffron', 'Rose petals', 'Heirloom garlic'],
+        pairing: 'Best enjoyed with our Sommelier-selected Syrah'
+      }
+    };
 
-function openDishModal(dishName) {
-  // In a real implementation, you would fetch this data from a CMS/API
-  const dishData = {
-    'samosa': {
-      title: 'Deconstructed Samosa',
-      story: `This dish reimagines my grandmother's roadside samosa stall through molecular gastronomy. The potato foam is infused with 14 spices from her secret blend, while the tamarind gel replicates the chutney she served to me after school.',
-      ingredients: ['Organic potatoes', 'Heirloom spices', 'Tamarind reduction', 'Filo crisp'],
-      pairing: 'Pairs beautifully with our Darjeeling First Flush Tea`
-    },
-    'rogan-josh': {
-      title: 'Saffron-Infused Rogan Josh',
-      story: 'Inspired by my apprenticeship in Kashmir, this 72-hour slow-cooked lamb incorporates saffron harvested by the same family I lived with in Pampore. The rose petals are hand-pressed from their garden.',
-      ingredients: ['New Zealand lamb rack', 'Kashmiri saffron', 'Rose petals', 'Heirloom garlic'],
-      pairing: 'Best enjoyed with our Sommelier-selected Syrah'
-    }
-  };
-
-  const dish = dishData[dishName];
-  
-  // Create modal HTML
-  const modalHTML = `
-    <div class="modal-overlay">
-      <div class="modal">
-        <button class="modal-close">&times;</button>
-        <div class="modal-content">
-          <h3>${dish.title}</h3>
-          <div class="modal-story">
-            <h4>The Story</h4>
-            <p>${dish.story}</p>
-          </div>
-          <div class="modal-details">
+    const dish = dishData[dishName];
+    if (!dish) return;
+    
+    // Create modal HTML
+    const modalHTML = `
+      <div class="modal-overlay">
+        <div class="modal">
+          <button class="modal-close" aria-label="Close modal">&times;</button>
+          <div class="modal-content">
+            <h3>${dish.title}</h3>
+            <div class="modal-story">
+              <h4>The Story</h4>
+              <p>${dish.story}</p>
+            </div>
             <div class="modal-ingredients">
               <h4>Key Ingredients</h4>
               <ul>
-                ${dish.ingredients.map(ing => `<li>${ing}</li>`).join('')}
+                ${dish.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
               </ul>
             </div>
             <div class="modal-pairing">
-              <h4>Suggested Pairing</h4>
+              <h4>Perfect Pairing</h4>
               <p>${dish.pairing}</p>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  `;
-
-  // Insert into DOM
-  document.body.insertAdjacentHTML('beforeend', modalHTML);
-  
-  // Add close functionality
-  document.querySelector('.modal-close').addEventListener('click', closeModal);
-  document.querySelector('.modal-overlay').addEventListener('click', (e) => {
-    if (e.target.classList.contains('modal-overlay')) closeModal();
-  });
-}
-
-function closeModal() {
-  const modal = document.querySelector('.modal-overlay');
-  modal.classList.add('fade-out');
-  setTimeout(() => modal.remove(), 300);
-}
-
-// ===== Newsletter Form Handling =====
-newsletterForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const emailInput = newsletterForm.querySelector('input[type="email"]');
-  const email = emailInput.value.trim();
-
-  if (!validateEmail(email)) {
-    showToast('Please enter a valid email address', 'error');
-    return;
+    `;
+    
+    // Add modal to page
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    
+    // Setup modal event listeners
+    const modal = document.querySelector('.modal-overlay');
+    const closeBtn = modal.querySelector('.modal-close');
+    
+    closeBtn.addEventListener('click', () => this.closeDishModal());
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) this.closeDishModal();
+    });
+    
+    // Prevent body scroll
+    document.body.style.overflow = 'hidden';
   }
 
-  // Simulate API call
-  try {
-    showToast('Subscribing...', 'loading');
-    
-    // Replace with actual fetch() to your backend
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    showToast('Thank you for subscribing!', 'success');
-    newsletterForm.reset();
-  } catch (error) {
-    showToast('Subscription failed. Please try again.', 'error');
-  }
-});
-
-function validateEmail(email) {
-  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return re.test(email);
-}
-
-function showToast(message, type) {
-  const toast = document.createElement('div');
-  toast.className = `toast toast-${type}`;
-  toast.textContent = message;
-  document.body.appendChild(toast);
-  
-  setTimeout(() => {
-    toast.classList.add('fade-out');
-    setTimeout(() => toast.remove(), 300);
-  }, 3000);
-}
-
-// ===== Scroll Animations =====
-const observerOptions = {
-  threshold: 0.1,
-  rootMargin: '0px 0px -100px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('fade-in');
-      observer.unobserve(entry.target);
+  closeDishModal() {
+    const modal = document.querySelector('.modal-overlay');
+    if (modal) {
+      modal.remove();
+      document.body.style.overflow = '';
     }
-  });
-}, observerOptions);
-
-sections.forEach(section => {
-  observer.observe(section);
-});
-
-// ===== Video Background Optimization =====
-function handleVideoBackground() {
-  const heroVideo = document.querySelector('.hero__video video');
-  
-  // Only play video on larger screens
-  if (window.innerWidth > 768) {
-    heroVideo.play().catch(e => {
-      console.log('Autoplay prevented:', e);
-      // Fallback: Show poster image with play button
-      heroVideo.controls = true;
-    });
-  } else {
-    // On mobile, use poster image only
-    heroVideo.src = '';
-    heroVideo.poster = heroVideo.getAttribute('data-poster');
   }
-}
 
-window.addEventListener('resize', handleVideoBackground);
-handleVideoBackground();
-
-// ===== Calendly Integration =====
-function initCalendly() {
-  const calendlyButtons = document.querySelectorAll('[data-calendly]');
-  
-  calendlyButtons.forEach(button => {
-    button.addEventListener('click', (e) => {
-      e.preventDefault();
-      Calendly.initPopupWidget({
-        url: 'https://calendly.com/chefnarhari/consultation'
-      });
-    });
-  });
-}
-
-// Load Calendly script dynamically
-if (!window.Calendly) {
-  const script = document.createElement('script');
-  script.src = 'https://assets.calendly.com/assets/external/widget.js';
-  script.async = true;
-  script.onload = initCalendly;
-  document.body.appendChild(script);
-} else {
-  initCalendly();
-}
-
-// Modal functionality
-document.addEventListener('DOMContentLoaded', function() {
-  // Get modal elements
-  const modal = document.getElementById('messageModal');
-  const modalClose = modal ? modal.querySelector('.modal-close') : null;
-  const sendButtons = document.querySelectorAll('a[href="contact.html"].btn--outline');
-  
-  // Open modal when Send Message button is clicked
-  sendButtons.forEach(button => {
-    button.addEventListener('click', function(e) {
-      e.preventDefault();
-      if (modal) {
-        modal.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-      }
-    });
-  });
-  
-  // Close modal when close button is clicked
-  if (modalClose) {
-    modalClose.addEventListener('click', function() {
-      if (modal) {
-        modal.style.display = 'none';
-        document.body.style.overflow = '';
-      }
-    });
-  }
-  
-  // Close modal when clicking outside of it
-  if (modal) {
-    modal.addEventListener('click', function(e) {
-      if (e.target === modal) {
-        modal.style.display = 'none';
-        document.body.style.overflow = '';
-      }
-    });
-  }
-  
-  // Handle modal form submission with Web3Forms and Turnstile
-  const messageForm = document.getElementById('messageForm');
-  if (messageForm) {
-    // Add Turnstile to modal
-    let modalTurnstileVerified = false;
-let modalTurnstileWidgetId = null;
+  // ===== Newsletter Form Setup =====
+  setupNewsletterForm() {
+    const { newsletterForm } = this.elements;
     
-    // Initialize Turnstile for modal
-    if (typeof turnstile !== 'undefined') {
-      turnstile.render(messageForm.querySelector('.cf-turnstile'), {
-        sitekey: '0x4AAAAAABqgkMEaDYSIeO8i',
-        callback: function(token) {
-          modalTurnstileVerified = true;
-        },
-        'expired-callback': function() {
-          modalTurnstileVerified = false;
-        },
-        'error-callback': function() {
-          modalTurnstileVerified = false;
+    if (!newsletterForm) return;
+
+    newsletterForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      if (this.state.isSubmitting) return;
+      
+      const emailInput = newsletterForm.querySelector('input[type="email"]');
+      const email = emailInput.value.trim();
+
+      if (!this.isValidEmail(email)) {
+        this.showToast('Please enter a valid email address', 'error');
+        return;
+      }
+
+      try {
+        this.state.isSubmitting = true;
+        this.showToast('Subscribing...', 'info');
+        
+        // Simulate API call - replace with actual newsletter service
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        this.showToast('Thank you for subscribing!', 'success');
+        newsletterForm.reset();
+      } catch (error) {
+        this.showToast('Subscription failed. Please try again.', 'error');
+        console.error('Newsletter subscription error:', error);
+      } finally {
+        this.state.isSubmitting = false;
+      }
+    });
+  }
+
+  // ===== Animation Setup =====
+  setupAnimations() {
+    this.setupScrollAnimations();
+  }
+
+  setupScrollAnimations() {
+    const { sections } = this.elements;
+    
+    if (!sections.length) return;
+
+    const observerOptions = {
+      threshold: CONFIG.ANIMATION.THRESHOLD,
+      rootMargin: CONFIG.ANIMATION.ROOT_MARGIN
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in');
+          observer.unobserve(entry.target);
         }
       });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+  }
+
+  setupScrollEffects() {
+    // Additional scroll-based effects can be added here
+  }
+
+  setupVideoOptimization() {
+    const video = document.querySelector('.hero-video');
+    if (!video) return;
+    
+    const handleVideoBackground = () => {
+      // Pause video on mobile to save bandwidth
+      if (window.innerWidth <= 768) {
+        video.pause();
+        video.style.display = 'none';
+      } else {
+        video.style.display = 'block';
+        video.play().catch(e => console.log('Video autoplay prevented'));
+      }
+    };
+
+    window.addEventListener('resize', this.debounce(handleVideoBackground, 250));
+    handleVideoBackground();
+  }
+
+  setupCalendlyIntegration() {
+    const calendlyButtons = document.querySelectorAll('[data-calendly]');
+    
+    if (!calendlyButtons.length) return;
+    
+    const initCalendly = () => {
+      calendlyButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (window.Calendly) {
+            window.Calendly.initPopupWidget({url: 'https://calendly.com/chef-narhari'});
+          }
+        });
+      });
+    };
+
+    // Load Calendly script dynamically
+    if (!window.Calendly) {
+      const script = document.createElement('script');
+      script.src = 'https://assets.calendly.com/assets/external/widget.js';
+      script.async = true;
+      script.onload = initCalendly;
+      document.body.appendChild(script);
+    } else {
+      initCalendly();
+    }
+  }
+
+  setupMessageModal() {
+    const { messageModal, sendButtons, messageForm } = this.elements;
+    
+    if (!messageModal) return;
+    
+    const modalClose = messageModal.querySelector('.modal-close');
+    
+    // Open modal when Send Message button is clicked
+    sendButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.openMessageModal();
+      });
+    });
+    
+    // Close modal when close button is clicked
+    if (modalClose) {
+      modalClose.addEventListener('click', () => {
+        this.closeMessageModal();
+      });
     }
     
-    messageForm.addEventListener('submit', function(e) {
+    // Close modal when clicking outside of it
+    messageModal.addEventListener('click', (e) => {
+      if (e.target === messageModal) {
+        this.closeMessageModal();
+      }
+    });
+    
+    // Setup form submission if form exists
+    if (messageForm) {
+      this.setupMessageFormSubmission();
+    }
+  }
+
+  openMessageModal() {
+    const { messageModal } = this.elements;
+    messageModal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeMessageModal() {
+    const { messageModal } = this.elements;
+    messageModal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  setupMessageFormSubmission() {
+    const { messageForm } = this.elements;
+    let modalTurnstileVerified = false;
+    
+    // Initialize Turnstile for modal if available
+    if (typeof turnstile !== 'undefined') {
+      const turnstileContainer = messageForm.querySelector('.cf-turnstile');
+      if (turnstileContainer) {
+        turnstile.render(turnstileContainer, {
+          sitekey: '0x4AAAAAABqgkMEaDYSIeO8i',
+          callback: (token) => {
+            modalTurnstileVerified = true;
+          },
+          'expired-callback': () => {
+            modalTurnstileVerified = false;
+          },
+          'error-callback': () => {
+            modalTurnstileVerified = false;
+          }
+        });
+      }
+    }
+    
+    messageForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+      
+      if (this.state.isSubmitting) return;
       
       // Check if Turnstile is verified
       if (!modalTurnstileVerified) {
-        alert('Please complete the CAPTCHA verification.');
+        this.showToast('Please complete the CAPTCHA verification.', 'error');
         return;
       }
       
-      // Get form data
-      const formData = new FormData(this);
-      
-      // Add Web3Forms access key
-      formData.append('access_key', 'caf02768-f053-4c48-aad5-b9a5ace1b4eb');
-      
-      // Add recipient email
-      formData.append('email_to', 'chef@narharikathayat.com.np');
-      
-      // Submit form to Web3Forms
-      fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => response.json())
-      .then(data => {
+      try {
+        this.state.isSubmitting = true;
+        const formData = new FormData(messageForm);
+        
+        // Add Web3Forms configuration
+        formData.append('access_key', 'caf02768-f053-4c48-aad5-b9a5ace1b4eb');
+        formData.append('email_to', 'chef@narharikathayat.com.np');
+        
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: formData
+        });
+        
+        const data = await response.json();
+        
         if (data.success) {
-          alert('Thank you! Your message has been sent.');
-          
-          // Hide send button
-          const submitButton = messageForm.querySelector('button[type="submit"]');
-          if (submitButton) {
-            submitButton.style.display = 'none';
-          }
-          
-          // Reset form and close modal
+          this.showToast('Thank you! Your message has been sent.', 'success');
           messageForm.reset();
-          if (modal) {
-            modal.style.display = 'none';
-            document.body.style.overflow = '';
-          }
+          this.closeMessageModal();
           
           // Reset Turnstile
           modalTurnstileVerified = false;
@@ -359,16 +470,59 @@ let modalTurnstileWidgetId = null;
             turnstile.reset();
           }
         } else {
-          alert(`There was an error sending your message: ${data.message || 'Please try again.'}`);
+          throw new Error(data.message || 'Form submission failed');
         }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('There was an error sending your message. Please try again.');
-      });
+      } catch (error) {
+        console.error('Message form submission error:', error);
+        this.showToast('There was an error sending your message. Please try again.', 'error');
+      } finally {
+        this.state.isSubmitting = false;
+      }
     });
   }
-  
-  // Contact form handling is now managed by contact-form.js
-  // This prevents conflicts and provides better separation of concerns
+
+  // ===== Utility Methods =====
+  debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func.apply(this, args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+
+  isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email) && email.length <= 100;
+  }
+
+  showToast(message, type = 'info') {
+    const toast = document.createElement('div');
+    toast.className = `toast toast--${type}`;
+    toast.textContent = message;
+    toast.setAttribute('role', 'alert');
+    toast.setAttribute('aria-live', 'polite');
+    
+    document.body.appendChild(toast);
+    
+    // Auto-remove toast
+    setTimeout(() => {
+      if (toast.parentNode) {
+        toast.remove();
+      }
+    }, CONFIG.TOAST_DURATION);
+  }
+}
+
+// ===== Application Initialization =====
+document.addEventListener('DOMContentLoaded', () => {
+  new ChefWebsiteApp();
 });
+
+// Export for potential module use
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = ChefWebsiteApp;
+}
