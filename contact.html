@@ -80,19 +80,20 @@
                         <h2>Send a Message</h2>
                         <form id="contactForm">
                             <div class="form-group">
-                                <label for="name">Your Name</label>
-                                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                                <label for="name">Your Name <span class="char-count">(0/25)</span></label>
+                                <input type="text" id="name" name="name" placeholder="Enter your name" required maxlength="25">
                             </div>
                             <div class="form-group">
-                                <label for="email">Your Email</label>
-                                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                                <label for="email">Your Email <span class="char-count">(0/30)</span></label>
+                                <input type="email" id="email" name="email" placeholder="Enter your email" required maxlength="30">
                             </div>
                             <div class="form-group">
-                                <label for="message">Your Message</label>
+                                <label for="message">Your Message <span class="word-count">(0/200 words)</span></label>
                                 <textarea id="message" name="message" placeholder="Write your message..." rows="5" required></textarea>
                             </div>
                             <div class="cf-turnstile" data-sitekey="0x4AAAAAABqgkMEaDYSIeO8i"></div>
-                            <button type="submit" class="btn btn--primary">Send Message</button>
+                            <button type="submit" class="btn btn--primary" id="submitBtn" disabled>Send Message</button>
+                            <div id="formMessage" class="form-message" style="display: none;" aria-live="polite" aria-atomic="true"></div>
                         </form>
                     </div>
                 </div>
@@ -208,17 +209,121 @@
     <!-- Cloudflare Turnstile -->
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script>
-        // Contact form handling
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contactForm');
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const messageInput = document.getElementById('message');
+            const submitBtn = document.getElementById('submitBtn');
+            const formMessage = document.getElementById('formMessage');
+            const nameCharCount = nameInput.nextElementSibling;
+            const emailCharCount = emailInput.nextElementSibling;
+            const wordCount = messageInput.nextElementSibling;
             
-            // Check if Turnstile is verified
-            // Note: In a real implementation, you would check the Turnstile response
-            // For now, we'll just show a success message
-            alert('Thank you! Your message has been sent.');
+            let turnstileVerified = false;
             
-            // Reset form
-            this.reset();
+            // Initialize Turnstile
+            turnstile.render('.cf-turnstile', {
+                sitekey: '0x4AAAAAABqgkMEaDYSIeO8i',
+                callback: function(token) {
+                    turnstileVerified = true;
+                    submitBtn.disabled = false;
+                },
+                'error-callback': function() {
+                    turnstileVerified = false;
+                    submitBtn.disabled = true;
+                    showFormMessage('Failed to verify CAPTCHA. Please try again.', 'error');
+                }
+            });
+            
+            // Character counting for name
+            nameInput.addEventListener('input', function() {
+                const count = this.value.length;
+                nameCharCount.textContent = `(${count}/25)`;
+            });
+            
+            // Character counting for email
+            emailInput.addEventListener('input', function() {
+                const count = this.value.length;
+                emailCharCount.textContent = `(${count}/30)`;
+            });
+            
+            // Word counting for message
+            messageInput.addEventListener('input', function() {
+                const words = this.value.trim().split(/\s+/).filter(word => word.length > 0);
+                const wordCountNum = words.length;
+                wordCount.textContent = `(${wordCountNum}/200 words)`;
+                
+                // Optional: Prevent typing more words
+                if (wordCountNum > 200) {
+                    const wordsArray = this.value.trim().split(/\s+/);
+                    this.value = wordsArray.slice(0, 200).join(' ');
+                    wordCount.textContent = `(200/200 words)`;
+                }
+            });
+            
+            // Form submission
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Check if Turnstile is verified
+                if (!turnstileVerified) {
+                    showFormMessage('Please complete the CAPTCHA verification.', 'error');
+                    return;
+                }
+                
+                // Get form data
+                const formData = new FormData(this);
+                
+                // Add Web3Forms access key
+                formData.append('access_key', 'caf02768-f053-4c48-aad5-b9a5ace1b4eb');
+                
+                // Add recipient email
+                formData.append('email_to', 'chef@narharikathayat.com.np');
+                
+                // Submit form to Web3Forms
+                fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showFormMessage('Message sent successfully!', 'success');
+                        
+                        // Reset form
+                        contactForm.reset();
+                        nameCharCount.textContent = '(0/25)';
+                        emailCharCount.textContent = '(0/30)';
+                        wordCount.textContent = '(0/200 words)';
+                        
+                        // Reset Turnstile
+                        turnstileVerified = false;
+                        submitBtn.disabled = true;
+                        turnstile.reset();
+                    } else {
+                        showFormMessage(`Failed to send message due to ${data.message || 'unknown error'}`, 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showFormMessage('Failed to send message due to network error. Please try again.', 'error');
+                });
+            });
+            
+            function showFormMessage(message, type) {
+                formMessage.textContent = message;
+                formMessage.className = `form-message ${type}`;
+                formMessage.style.display = 'block';
+                
+                // Scroll to message
+                formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                
+                // Hide message after 5 seconds
+                setTimeout(() => {
+                    formMessage.style.display = 'none';
+                }, 5000);
+            }
         });
     </script>
     

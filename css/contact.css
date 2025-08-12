@@ -87,13 +87,59 @@
 
 .form-group input:focus,
 .form-group textarea:focus {
-  outline: none;
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
   border-color: var(--primary);
 }
 
 .form-group textarea {
   min-height: 150px;
   resize: vertical;
+}
+
+.form-group label {
+  display: flex;
+  justify-content: space-between;
+}
+
+.char-count, .word-count {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.form-message {
+  padding: 1rem;
+  border-radius: 5px;
+  margin-top: 1rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.form-message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.form-message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+#submitBtn:disabled {
+  background-color: #ccc;
+  border-color: #ccc;
+  cursor: not-allowed;
+}
+
+#submitBtn:disabled:hover {
+  background-color: #ccc;
+  color: white;
+}
+
+.cf-turnstile {
+ margin: 1rem 0;
 }
 
 /* ===== RESPONSIVE DESIGN ===== */
