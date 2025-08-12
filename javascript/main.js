@@ -5,43 +5,26 @@ const dishButtons = document.querySelectorAll('[data-dish]');
 const newsletterForm = document.querySelector('.newsletter');
 const sections = document.querySelectorAll('section');
 
-// ===== Desktop Dropdown Menu =====
-document.querySelectorAll('.dropdown').forEach(dropdown => {
-  const toggle = dropdown.querySelector('.dropdown-toggle');
+// ===== Desktop Recipe Navigation =====
+document.querySelectorAll('.recipes-nav').forEach(nav => {
+  const mainLink = nav.querySelector('.nav-main');
   
-  if (toggle) {
-    toggle.addEventListener('click', (e) => {
-      // Only prevent default if clicking on the dropdown arrow
+  if (mainLink) {
+    mainLink.addEventListener('click', (e) => {
       // If clicking on the main link, let it navigate
-      if (e.target === toggle || e.target.parentNode === toggle) {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        // Close other dropdowns
-        document.querySelectorAll('.dropdown').forEach(otherDropdown => {
-          if (otherDropdown !== dropdown) {
-            otherDropdown.classList.remove('active');
-          }
-        });
-        
-        dropdown.classList.toggle('active');
-      }
+      // The snippet will be shown on hover
+      return;
     });
   }
 });
 
-// Close dropdowns when clicking outside
-document.addEventListener('click', () => {
-  document.querySelectorAll('.dropdown').forEach(dropdown => {
-    dropdown.classList.remove('active');
-  });
-});
-
-// Prevent dropdown from closing when clicking inside
-document.querySelectorAll('.dropdown-menu').forEach(menu => {
-  menu.addEventListener('click', (e) => {
-    e.stopPropagation();
-  });
+// Close recipe snippets when clicking outside
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.recipes-nav')) {
+    document.querySelectorAll('.recipes-snippet').forEach(snippet => {
+      snippet.style.display = 'none';
+    });
+  }
 });
 
 // ===== Sticky Header on Scroll =====

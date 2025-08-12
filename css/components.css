@@ -123,36 +123,51 @@ h1, h2, h3, h4 {
   color: var(--primary);
 }
 
-/* ===== DROPDOWN MENU ===== */
-.dropdown {
+/* ===== RECIPES SNIPPET NAVIGATION ===== */
+.recipes-nav {
   position: relative;
 }
 
-.dropdown-toggle {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
+.nav-main {
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: var(--text-dark);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  position: relative;
 }
 
-.dropdown-toggle::after {
-  content: '▼';
-  font-size: 0.8rem;
-  transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+.nav-main::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary);
+  transition: width 0.3s ease;
 }
 
-.dropdown.active .dropdown-toggle::after {
-  transform: rotate(180deg);
+.nav-main:hover::after,
+.nav-main.active::after {
+  width: 100%;
 }
 
-.dropdown-menu {
+.nav-main.active {
+  color: var(--primary);
+}
+
+.recipes-snippet {
   position: absolute;
   top: 100%;
   left: 0;
   background: white;
-  min-width: 400px;
   border-radius: 8px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 1rem;
+  display: flex;
+  gap: 1rem;
+  z-index: 1001;
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px) scale(0.95);
@@ -160,33 +175,28 @@ h1, h2, h3, h4 {
     opacity 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55),
     transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55),
     visibility 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  z-index: 1001;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
   transform-origin: top center;
 }
 
-.dropdown.active .dropdown-menu {
+.recipes-nav:hover .recipes-snippet {
   opacity: 1;
   visibility: visible;
   transform: translateY(0) scale(1);
 }
 
-.dropdown-menu a {
+.recipes-snippet a {
   display: block;
-  padding: 0.8rem 1.5rem;
+  padding: 0.5rem;
   color: var(--text-dark);
   text-decoration: none;
-  transition: background 0.3s ease;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+  white-space: nowrap;
 }
 
-
-.dropdown-menu a:hover {
-  background: var(--light);
+.recipes-snippet a:hover {
   color: var(--primary);
 }
-
 
 /* ===== BUTTONS ===== */
 .btn {
@@ -382,6 +392,11 @@ h1, h2, h3, h4 {
   .footer__links {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
+  
+  .recipes-snippet {
+    flex-wrap: wrap;
+    max-width: 300px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -397,6 +412,19 @@ h1, h2, h3, h4 {
   
   .social-links {
     justify-content: center;
+  }
+  
+  .recipes-snippet {
+    position: static;
+    transform: none;
+    box-shadow: none;
+    background: transparent;
+    padding: 0;
+    display: none;
+  }
+  
+  .recipes-nav:hover .recipes-snippet {
+    display: none;
   }
 }
 
