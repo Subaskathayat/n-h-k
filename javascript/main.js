@@ -253,6 +253,7 @@ document.addEventListener('DOMContentLoaded', function() {
   if (messageForm) {
     // Add Turnstile to modal
     let modalTurnstileVerified = false;
+let modalTurnstileWidgetId = null;
     
     // Initialize Turnstile for modal
     if (typeof turnstile !== 'undefined') {
@@ -260,6 +261,9 @@ document.addEventListener('DOMContentLoaded', function() {
         sitekey: '0x4AAAAAABqgkMEaDYSIeO8i',
         callback: function(token) {
           modalTurnstileVerified = true;
+        },
+        'expired-callback': function() {
+          modalTurnstileVerified = false;
         },
         'error-callback': function() {
           modalTurnstileVerified = false;
@@ -327,8 +331,34 @@ document.addEventListener('DOMContentLoaded', function() {
   // Handle contact page form submission with Web3Forms and Turnstile
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
+    // Add Turnstile to contact form
+    let contactTurnstileVerified = false;
+    let contactTurnstileWidgetId = null;
+    
+    // Initialize Turnstile for contact form
+    if (typeof turnstile !== 'undefined') {
+      contactTurnstileWidgetId = turnstile.render(contactForm.querySelector('.cf-turnstile'), {
+        sitekey: '0x4AAAAAABqgkMEaDYSIeO8i',
+        callback: function(token) {
+          contactTurnstileVerified = true;
+        },
+        'expired-callback': function() {
+          contactTurnstileVerified = false;
+        },
+        'error-callback': function() {
+          contactTurnstileVerified = false;
+        }
+      });
+    }
+    
     contactForm.addEventListener('submit', function(e) {
       e.preventDefault();
+      
+      // Check if Turnstile is verified
+      if (!contactTurnstileVerified) {
+        alert('Please complete the CAPTCHA verification.');
+        return;
+      }
       
       // Get form data
       const formData = new FormData(this);
@@ -357,13 +387,27 @@ document.addEventListener('DOMContentLoaded', function() {
           
           // Reset form
           contactForm.reset();
+          
+          // Reset Turnstile
+          contactTurnstileVerified = false;
+          if (typeof turnstile !== 'undefined') {
+            turnstile.reset();
+          }
         } else {
           alert(`There was an error sending your message: ${data.message || 'Please try again.'}`);
+          // Reset Turnstile
+          if (typeof turnstile !== 'undefined') {
+            turnstile.reset();
+          }
         }
       })
       .catch(error => {
         console.error('Error:', error);
         alert('There was an error sending your message. Please check your connection and try again.');
+        // Reset Turnstile
+        if (typeof turnstile !== 'undefined') {
+          turnstile.reset();
+        }
       });
     });
   }
