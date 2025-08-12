@@ -1,6 +1,9 @@
 // ===== DOM Elements =====
 const navbar = document.querySelector('.header');
 const navbarMenu = document.querySelector('.navbar__menu');
+const navBarContainer = document.querySelector('.navbar');
+const navToggle = document.querySelector('.navbar__toggle');
+const primaryMenu = document.getElementById('primary-menu');
 const dishButtons = document.querySelectorAll('[data-dish]');
 const newsletterForm = document.querySelector('.newsletter');
 const sections = document.querySelectorAll('section');
@@ -31,6 +34,44 @@ document.addEventListener('click', (e) => {
 window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 50);
 });
+
+// ===== Responsive Navbar (Hamburger) =====
+function setMenuState(isOpen) {
+  if (!navBarContainer || !navToggle || !primaryMenu) return;
+  navBarContainer.classList.toggle('navbar--open', isOpen);
+  navToggle.setAttribute('aria-expanded', String(isOpen));
+  // Prevent body scroll when menu open on mobile
+  if (isOpen && window.innerWidth <= 992) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = '';
+  }
+}
+
+if (navToggle && navBarContainer && primaryMenu) {
+  // Toggle on button click
+  navToggle.addEventListener('click', () => {
+    const open = !navBarContainer.classList.contains('navbar--open');
+    setMenuState(open);
+  });
+
+  // Close when any link in the menu is clicked
+  primaryMenu.addEventListener('click', (e) => {
+    if (e.target.closest('a')) {
+      setMenuState(false);
+    }
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setMenuState(false);
+  });
+
+  // Close when resizing to desktop
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 992) setMenuState(false);
+  });
+}
 
 // ===== Signature Dish Modals =====
 dishButtons.forEach(button => {

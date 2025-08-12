@@ -28,7 +28,13 @@
                     <span class="logo-subtext">Chef & Culinary Artist</span>
                 </a>
             </div>
-            <ul class="navbar__menu">
+            <!-- Mobile hamburger toggle -->
+            <button class="navbar__toggle" aria-label="Toggle navigation" aria-controls="primary-menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul id="primary-menu" class="navbar__menu" role="menubar">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li class="recipes-nav">
@@ -46,6 +52,20 @@
                 <li><a href="articles.html">Articles</a></li>
                 <li><a href="contact.html" class="active">Contact</a></li>
                 <li><a href="contact.html" class="btn--outline">Send Message</a></li>
+                <!-- Social links inside menu for mobile; on desktop they align to the right -->
+                <li>
+                    <div class="navbar__social" aria-label="Follow on social">
+                        <a href="#" aria-label="Instagram" title="Instagram">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A5.5 5.5 0 1 1 6.5 13 5.5 5.5 0 0 1 12 7.5zm0 2A3.5 3.5 0 1 0 15.5 13 3.5 3.5 0 0 0 12 9.5zM17.75 6a1.25 1.25 0 1 1-1.25 1.25A1.25 1.25 0 0 1 17.75 6z"/></svg>
+                        </a>
+                        <a href="#" aria-label="Twitter" title="Twitter">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 5.92a8.19 8.19 0 0 1-2.36.65 4.11 4.11 0 0 0 1.8-2.27 8.22 8.22 0 0 1-2.6.99 4.1 4.1 0 0 0-7 3.74A11.64 11.64 0 0 1 3.16 4.9a4.09 4.09 0 0 0 1.27 5.47 4.06 4.06 0 0 1-1.86-.51v.05a4.1 4.1 0 0 0 3.29 4 4.1 4.1 0 0 1-1.85.07 4.1 4.1 0 0 0 3.83 2.85A8.23 8.23 0 0 1 2 19.54a11.62 11.62 0 0 0 6.29 1.84c7.55 0 11.68-6.26 11.68-11.68l-.01-.53A8.33 8.33 0 0 0 22 5.92z"/></svg>
+                        </a>
+                        <a href="#" aria-label="LinkedIn" title="LinkedIn">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1-.02 5 2.5 2.5 0 0 1 .02-5zM3 8.98h4v12H3v-12zM9 8.98h3.8v1.64h.05a4.17 4.17 0 0 1 3.75-2.06c4 0 4.74 2.64 4.74 6.07v6.35h-4v-5.63c0-1.34-.03-3.07-1.87-3.07-1.87 0-2.16 1.46-2.16 2.97v5.73H9v-12z"/></svg>
+                        </a>
+                    </div>
+                </li>
             </ul>
         </nav>
     </header>
