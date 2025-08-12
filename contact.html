@@ -80,39 +80,47 @@
                     
                     <div class="contact-form">
                         <h2 data-aos="slide-up">Send a Message</h2>
-                        <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" data-aos="slide-up">
-                            <input type="hidden" name="access_key" value="eccbbbbd-82e3-4f49-88f8-225ba8f793c0">
+                        <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" data-aos="slide-up" novalidate>
+                            <input type="hidden" name="access_key" value="caf02768-f053-4c48-aad5-b9a5ace1b4eb">
+                            <!-- Honeypot for spam protection -->
+                            <input type="checkbox" name="botcheck" style="display: none;">
+                            <input type="hidden" name="redirect" value="https://web3forms.com/success">
                             
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="name" data-aos="slide-up">Your Name *</label>
-                                    <input type="text" name="name" id="name" maxlength="20" required placeholder="Enter your full name" data-aos="slide-up">
-                                </div>
-                                <div class="form-group">
-                                    <label for="email" data-aos="slide-up">Your Email *</label>
-                                    <input type="email" name="email" id="email" maxlength="40" required placeholder="Enter your email address" data-aos="slide-up">
-                                </div>
-                            </div>
-                            
+
                             <div class="form-group">
-                                <label for="subject" data-aos="slide-up">Subject *</label>
-                                <input type="text" name="subject" id="subject" maxlength="50" required placeholder="What's this about?" data-aos="slide-up">
+                                <label for="name" data-aos="slide-up">Your Name * <span class="char-count" id="nameCount">(0/50)</span></label>
+                                <input type="text" name="name" id="name" maxlength="50" required placeholder="Enter your full name" data-aos="slide-up" aria-describedby="nameError" autocomplete="name">
+                                <div id="nameError" class="field-error" role="alert" aria-live="polite"></div>
                             </div>
-                            
+
                             <div class="form-group">
-                                <label for="message" data-aos="slide-up">Message *</label>
-                                <textarea name="message" id="message" rows="6" maxlength="150" required placeholder="Share your ideas, project details, or just say hello..." data-aos="slide-up"></textarea>
+                                <label for="email" data-aos="slide-up">Your Email * <span class="char-count" id="emailCount">(0/100)</span></label>
+                                <input type="email" name="email" id="email" maxlength="100" required placeholder="Enter your email address" data-aos="slide-up" aria-describedby="emailError" autocomplete="email">
+                                <div id="emailError" class="field-error" role="alert" aria-live="polite"></div>
                             </div>
-                            
+
+                            <div class="form-group">
+                                <label for="subject" data-aos="slide-up">Subject * <span class="char-count" id="subjectCount">(0/100)</span></label>
+                                <input type="text" name="subject" id="subject" maxlength="100" required placeholder="What's this about?" data-aos="slide-up" aria-describedby="subjectError">
+                                <div id="subjectError" class="field-error" role="alert" aria-live="polite"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message" data-aos="slide-up">Message * <span class="char-count" id="messageCount">(0/1000)</span></label>
+                                <textarea name="message" id="message" rows="6" maxlength="1000" required placeholder="Share your ideas, project details, or just say hello..." data-aos="slide-up" aria-describedby="messageError"></textarea>
+                                <div id="messageError" class="field-error" role="alert" aria-live="polite"></div>
+                            </div>
+
                             <!-- Cloudflare Turnstile -->
                             <div class="cf-turnstile" data-sitekey="0x4AAAAAABqgkMEaDYSIeO8i" data-callback="onTurnstileSuccess" data-expired-callback="onTurnstileExpire" data-error-callback="onTurnstileError" data-aos="slide-up"></div>
-                            
-                            <button type="submit" id="submitButton" disabled data-aos="slide-up">
+                            <div id="turnstileError" class="field-error" role="alert" aria-live="polite"></div>
+
+                            <button type="submit" id="submitButton" disabled data-aos="slide-up" aria-describedby="formStatus">
                                 <span class="btn-text">Send Message</span>
                                 <span class="btn-icon">→</span>
                             </button>
-                            
-                            <div id="formStatus" class="form-status"></div>
+
+                            <div id="formStatus" class="form-status" role="status" aria-live="polite"></div>
                         </form>
                     </div>
                 </div>
@@ -225,6 +233,7 @@
     </footer>
 
     <script src="javascript/main.js" defer></script>
+    <script src="javascript/contact-form.js" defer></script>
     <!-- Cloudflare Turnstile -->
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -235,43 +244,6 @@
             easing: 'ease-in-out',
             once: true
         });
-
-        // Turnstile callback
-        window.onTurnstileSuccess = function() {
-            document.getElementById("submitButton").disabled = false;
-        };
-// Turnstile expired callback
-        window.onTurnstileExpire = function() {
-            document.getElementById("submitButton").disabled = true;
-            showStatus("Security verification expired. Please complete the CAPTCHA again.", "error");
-        };
-        
-        // Turnstile error callback
-        window.onTurnstileError = function() {
-            document.getElementById("submitButton").disabled = true;
-            showStatus("Security verification error. Please try again.", "error");
-        };
-
-        // Contact form handling
-        document.getElementById("contactForm").addEventListener("submit", async function (e) {
-            // Allow the main.js script to handle form submission
-            return;
-        });
-
-        // Helper function to show form status
-        function showStatus(message, type) {
-            const status = document.getElementById("formStatus");
-            status.textContent = message;
-            status.className = `form-status ${type}`;
-
-            // Auto-hide success messages after 5 seconds
-            if (type === "success") {
-                setTimeout(() => {
-                    status.className = "form-status";
-                    status.textContent = "";
-                }, 5000);
-            }
-        }
     </script>
     
     <!-- Send Message Modal -->
