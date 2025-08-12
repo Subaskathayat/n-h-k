@@ -224,19 +224,28 @@ class ContactFormHandler {
         try {
             const formData = new FormData(this.form);
             
-            // Sanitize form data
+            // Remove Turnstile token (Web3Forms doesn't verify it server-side on free tier)
+            if (formData.has('cf-turnstile-response')) {
+                formData.delete('cf-turnstile-response');
+            }
+
+            // Sanitize form data first
             const sanitizedData = this.sanitizeFormData(formData);
+
+            // Only keep fields that Web3Forms expects
+            const allowedKeys = new Set(['access_key', 'name', 'email', 'subject', 'message', 'botcheck', 'redirect']);
+            const payload = new FormData();
+            for (let [key, value] of sanitizedData.entries()) {
+                if (allowedKeys.has(key)) {
+                    payload.append(key, value);
+                }
+            }
             
-            // Add additional security headers
-            sanitizedData.append('from_name', sanitizedData.get('name'));
-            sanitizedData.append('reply_to', sanitizedData.get('email'));
-            sanitizedData.append('subject', `Contact Form: ${sanitizedData.get('subject')}`);
-            
-            console.log('Submitting form with data:', Object.fromEntries(sanitizedData));
+            console.log('Submitting form with data:', Object.fromEntries(payload));
             
             const response = await fetch(this.form.action, {
                 method: 'POST',
-                body: sanitizedData,
+                body: payload,
                 headers: {
                     'Accept': 'application/json'
                 }
@@ -249,7 +258,9 @@ class ContactFormHandler {
                 this.handleSuccess();
                 this.updateRateLimit();
             } else {
-                throw new Error(result.message || 'Form submission failed');
+                // Show API-provided error message
+                const msg = (result && (result.message || result.error)) ? (result.message || result.error) : 'Form submission failed';
+                throw new Error(msg);
             }
             
         } catch (error) {
@@ -305,9 +316,13 @@ class ContactFormHandler {
     handleError(error) {
         let errorMessage = 'Sorry, there was an error sending your message. Please try again.';
         
-        if (error.message.includes('network') || error.message.includes('fetch')) {
+        const msg = (error && error.message) ? error.message : '';
+        if (msg) {
+            errorMessage = msg;
+        }
+        if (msg.toLowerCase().includes('network') || msg.toLowerCase().includes('fetch')) {
             errorMessage = 'Network error. Please check your connection and try again.';
-        } else if (error.message.includes('rate limit')) {
+        } else if (msg.toLowerCase().includes('rate limit')) {
             errorMessage = 'Too many requests. Please wait a moment before trying again.';
         }
         
