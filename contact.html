@@ -12,6 +12,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="assets/chef-logo.svg">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="css/contact.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/home.css">
@@ -77,23 +79,40 @@
                     </div>
                     
                     <div class="contact-form">
-                        <h2>Send a Message</h2>
-                        <form id="contactForm">
-                            <div class="form-group">
-                                <label for="name">Your Name <span class="char-count">(0/25)</span></label>
-                                <input type="text" id="name" name="name" placeholder="Enter your name" required maxlength="25">
+                        <h2 data-aos="slide-up">Send a Message</h2>
+                        <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" data-aos="slide-up">
+                            <input type="hidden" name="access_key" value="eccbbbbd-82e3-4f49-88f8-225ba8f793c0">
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="name" data-aos="slide-up">Your Name *</label>
+                                    <input type="text" name="name" id="name" maxlength="20" required placeholder="Enter your full name" data-aos="slide-up">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" data-aos="slide-up">Your Email *</label>
+                                    <input type="email" name="email" id="email" maxlength="40" required placeholder="Enter your email address" data-aos="slide-up">
+                                </div>
                             </div>
+                            
                             <div class="form-group">
-                                <label for="email">Your Email <span class="char-count">(0/30)</span></label>
-                                <input type="email" id="email" name="email" placeholder="Enter your email" required maxlength="30">
+                                <label for="subject" data-aos="slide-up">Subject *</label>
+                                <input type="text" name="subject" id="subject" maxlength="50" required placeholder="What's this about?" data-aos="slide-up">
                             </div>
+                            
                             <div class="form-group">
-                                <label for="message">Your Message <span class="word-count">(0/200 words)</span></label>
-                                <textarea id="message" name="message" placeholder="Write your message..." rows="5" required></textarea>
+                                <label for="message" data-aos="slide-up">Message *</label>
+                                <textarea name="message" id="message" rows="6" maxlength="150" required placeholder="Share your ideas, project details, or just say hello..." data-aos="slide-up"></textarea>
                             </div>
-                            <div class="cf-turnstile" data-sitekey="0x4AAAAAABqgkMEaDYSIeO8i"></div>
-                            <button type="submit" class="btn btn--primary" id="submitBtn" disabled>Send Message</button>
-                            <div id="formMessage" class="form-message" style="display: none;" aria-live="polite" aria-atomic="true"></div>
+                            
+                            <!-- Cloudflare Turnstile -->
+                            <div class="cf-turnstile" data-sitekey="0x4AAAAAABqgkMEaDYSIeO8i" data-callback="onTurnstileSuccess" data-aos="slide-up"></div>
+                            
+                            <button type="submit" id="submitButton" disabled data-aos="slide-up">
+                                <span class="btn-text">Send Message</span>
+                                <span class="btn-icon">→</span>
+                            </button>
+                            
+                            <div id="formStatus" class="form-status"></div>
                         </form>
                     </div>
                 </div>
@@ -208,135 +227,139 @@
     <script src="javascript/main.js" defer></script>
     <!-- Cloudflare Turnstile -->
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const contactForm = document.getElementById('contactForm');
-            const nameInput = document.getElementById('name');
-            const emailInput = document.getElementById('email');
-            const messageInput = document.getElementById('message');
-            const submitBtn = document.getElementById('submitBtn');
-            const formMessage = document.getElementById('formMessage');
-            const nameCharCount = nameInput.nextElementSibling;
-            const emailCharCount = emailInput.nextElementSibling;
-            const wordCount = messageInput.nextElementSibling;
-            
-            let turnstileVerified = false;
-            
-            // Initialize Turnstile
-            turnstile.render('.cf-turnstile', {
-                sitekey: '0x4AAAAAABqgkMEaDYSIeO8i',
-                callback: function(token) {
-                    turnstileVerified = true;
-                    submitBtn.disabled = false;
-                },
-                'error-callback': function() {
-                    turnstileVerified = false;
-                    submitBtn.disabled = true;
-                    showFormMessage('Failed to verify CAPTCHA. Please try again.', 'error');
-                }
-            });
-            
-            // Character counting for name
-            nameInput.addEventListener('input', function() {
-                const count = this.value.length;
-                nameCharCount.textContent = `(${count}/25)`;
-            });
-            
-            // Character counting for email
-            emailInput.addEventListener('input', function() {
-                const count = this.value.length;
-                emailCharCount.textContent = `(${count}/30)`;
-            });
-            
-            // Word counting for message
-            messageInput.addEventListener('input', function() {
-                const words = this.value.trim().split(/\s+/).filter(word => word.length > 0);
-                const wordCountNum = words.length;
-                wordCount.textContent = `(${wordCountNum}/200 words)`;
-                
-                // Optional: Prevent typing more words
-                if (wordCountNum > 200) {
-                    const wordsArray = this.value.trim().split(/\s+/);
-                    this.value = wordsArray.slice(0, 200).join(' ');
-                    wordCount.textContent = `(200/200 words)`;
-                }
-            });
-            
-            // Form submission
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Check if Turnstile is verified
-                if (!turnstileVerified) {
-                    showFormMessage('Please complete the CAPTCHA verification.', 'error');
-                    return;
-                }
-                
-                // Show loading state
-                const originalBtnText = submitBtn.textContent;
-                submitBtn.textContent = 'Sending...';
-                submitBtn.disabled = true;
-                
-                // Get form data
-                const formData = new FormData(this);
-                
-                // Add Web3Forms access key
-                formData.append('access_key', 'caf02768-f053-4c48-aad5-b9a5ace1b4eb');
-                
-                // Add recipient email
-                formData.append('email_to', 'chef@narharikathayat.com.np');
-                
-                // Submit form to Web3Forms
-                fetch('https://api.web3forms.com/submit', {
-                    method: 'POST',
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+
+        // Turnstile callback
+        window.onTurnstileSuccess = function() {
+            document.getElementById("submitButton").disabled = false;
+        };
+
+        // Contact form handling
+        document.getElementById("contactForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const formData = new FormData(form);
+            const status = document.getElementById("formStatus");
+            const submitButton = document.getElementById("submitButton");
+            const btnText = submitButton.querySelector('.btn-text');
+            const btnIcon = submitButton.querySelector('.btn-icon');
+            const originalBtnText = btnText.textContent;
+            const originalBtnIcon = btnIcon.textContent;
+
+            // Validate form fields
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const subject = formData.get('subject');
+            const message = formData.get('message');
+
+            if (!name || !email || !subject || !message) {
+                showStatus("Please fill in all required fields", "error");
+                return;
+            }
+
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showStatus("Please enter a valid email address", "error");
+                return;
+            }
+
+            // Get Turnstile token for client-side validation only
+            const token = turnstile.getResponse();
+            if (!token) {
+                showStatus("Please complete the security verification", "error");
+                return;
+            }
+
+            // Remove Turnstile token from form data (Web3Forms free plan doesn't support it)
+            formData.delete('cf-turnstile-response');
+
+            // Show loading animation
+            submitButton.classList.add('loading');
+            btnText.textContent = 'Sending...';
+            btnIcon.textContent = '⏳';
+            submitButton.disabled = true;
+
+            try {
+                console.log('Submitting form to:', form.action);
+                console.log('Form data:', Object.fromEntries(formData));
+
+                const res = await fetch(form.action, {
+                    method: "POST",
                     body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        showFormMessage('Message sent successfully!', 'success');
-                        
-                        // Reset form
-                        contactForm.reset();
-                        nameCharCount.textContent = '(0/25)';
-                        emailCharCount.textContent = '(0/30)';
-                        wordCount.textContent = '(0/200 words)';
-                        
-                        // Reset Turnstile
-                        turnstileVerified = false;
-                        submitBtn.disabled = true;
-                        turnstile.reset();
-                    } else {
-                        showFormMessage(`Failed to send message: ${data.message || 'Please try again later.'}`, 'error');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    showFormMessage('Failed to send message. Please check your connection and try again.', 'error');
-                })
-                .finally(() => {
-                    // Reset button state
-                    submitBtn.textContent = originalBtnText;
-                    if (!turnstileVerified) {
-                        submitBtn.disabled = true;
-                    }
                 });
-            });
-            
-            function showFormMessage(message, type) {
-                formMessage.textContent = message;
-                formMessage.className = `form-message ${type}`;
-                formMessage.style.display = 'block';
-                
-                // Scroll to message
-                formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                
-                // Hide message after 5 seconds
-                setTimeout(() => {
-                    formMessage.style.display = 'none';
-                }, 5000);
+
+                console.log('Response status:', res.status);
+                console.log('Response ok:', res.ok);
+
+                const data = await res.json();
+                console.log('Response data:', data);
+
+                if (res.ok && data.success) {
+                    showStatus("Message sent successfully! I'll get back to you soon.", "success");
+                    form.reset();
+                    turnstile.reset();
+
+                    // Hide the submit button on success
+                    submitButton.style.display = 'none';
+
+                    // Show a "Message Sent" indicator instead
+                    const successIndicator = document.createElement('div');
+                    successIndicator.className = 'success-indicator';
+                    successIndicator.innerHTML = `
+                        <div style="text-align: center; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 10px; margin: 20px 0;">
+                            <span style="font-size: 24px;">✓</span>
+                            <p style="margin: 10px 0 0 0; font-weight: 600;">Message Sent Successfully!</p>
+                            <p style="margin: 5px 0 0 0; font-size: 14px; opacity: 0.9;">Thank you for reaching out!</p>
+                        </div>
+                    `;
+
+                    // Insert the success indicator where the button was
+                    submitButton.parentNode.insertBefore(successIndicator, submitButton.nextSibling);
+
+                } else {
+                    console.log('Form submission failed:', data);
+                    showStatus("Something went wrong. Please try again later.", "error");
+                    turnstile.reset();
+                    submitButton.disabled = true;
+                }
+            } catch (err) {
+                console.error('Form submission error:', err);
+                showStatus("Network error. Please check your connection and try again.", "error");
+                turnstile.reset();
+                submitButton.disabled = true;
+            } finally {
+                // Remove loading animation and restore button (only if not successful)
+                if (submitButton.style.display !== 'none') {
+                    submitButton.classList.remove('loading');
+                    btnText.textContent = originalBtnText;
+                    btnIcon.textContent = originalBtnIcon;
+                }
             }
         });
+
+        // Helper function to show form status
+        function showStatus(message, type) {
+            const status = document.getElementById("formStatus");
+            status.textContent = message;
+            status.className = `form-status ${type}`;
+
+            // Auto-hide success messages after 5 seconds
+            if (type === "success") {
+                setTimeout(() => {
+                    status.className = "form-status";
+                    status.textContent = "";
+                }, 5000);
+            }
+        }
     </script>
     
     <!-- Send Message Modal -->

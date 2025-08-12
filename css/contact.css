@@ -127,15 +127,90 @@
   border: 1px solid #f5c6cb;
 }
 
-#submitBtn:disabled {
+/* Form status styling (matching the working implementation) */
+.form-status {
+  padding: 1rem;
+  border-radius: 5px;
+  margin-top: 1rem;
+  text-align: center;
+  font-weight: 500;
+  display: none;
+}
+
+.form-status.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+  display: block;
+}
+
+.form-status.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  display: block;
+}
+
+/* Submit button styling (matching the working implementation) */
+#submitButton {
+  background: var(--primary);
+  color: white;
+  border: 2px solid var(--primary);
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  text-align: center;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#submitButton:hover {
+  background: transparent;
+  color: var(--primary);
+}
+
+#submitButton:disabled {
   background-color: #ccc;
   border-color: #ccc;
   cursor: not-allowed;
 }
 
-#submitBtn:disabled:hover {
+#submitButton:disabled:hover {
   background-color: #ccc;
   color: white;
+}
+
+#submitButton.loading .btn-text {
+  opacity: 0.8;
+}
+
+#submitButton.loading .btn-icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Button text and icon styling */
+.btn-text {
+  transition: opacity 0.3s ease;
+}
+
+.btn-icon {
+  transition: transform 0.3s ease;
+}
+
+#submitButton:not(.loading):hover .btn-icon {
+  transform: translateX(3px);
 }
 
 .cf-turnstile {
