@@ -232,8 +232,8 @@ class ContactFormHandler {
             // Sanitize form data first
             const sanitizedData = this.sanitizeFormData(formData);
 
-            // Only keep fields that Web3Forms expects
-            const allowedKeys = new Set(['access_key', 'name', 'email', 'subject', 'message', 'botcheck', 'redirect']);
+            // Only keep fields that Web3Forms expects for AJAX (do NOT include 'redirect' to avoid cross-origin redirect issues)
+            const allowedKeys = new Set(['access_key', 'name', 'email', 'subject', 'message', 'botcheck']);
             const payload = new FormData();
             for (let [key, value] of sanitizedData.entries()) {
                 if (allowedKeys.has(key)) {
@@ -251,8 +251,16 @@ class ContactFormHandler {
                 }
             });
             
-            const result = await response.json();
-            console.log('Form submission response:', result);
+            let result;
+            try {
+                result = await response.json();
+            } catch (e) {
+                // Fallback to text for non-JSON responses (e.g., HTML error or redirect page)
+                const text = await response.text();
+                console.warn('Non-JSON response body:', text);
+                result = { success: false, message: text };
+            }
+            console.log('Form submission response (status ' + response.status + '):', result);
             
             if (response.ok && result.success) {
                 this.handleSuccess();
