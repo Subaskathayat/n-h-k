@@ -169,7 +169,21 @@
         </div>
     </div>
 
+    <!-- Load configuration from environment variables -->
+    <script src="config.js"></script>
+    
     <script>
+        // Get API key from environment variable
+        const OPENROUTER_API_KEY = config.OPENROUTER_API_KEY;
+        
+        // Set the API key in the input field if it exists
+        document.addEventListener('DOMContentLoaded', () => {
+            const apiKeyInput = document.getElementById('apiKey');
+            if (OPENROUTER_API_KEY && OPENROUTER_API_KEY !== 'your-api-key-here') {
+                apiKeyInput.value = OPENROUTER_API_KEY;
+            }
+        });
+        
         // Toggle password visibility
         function togglePasswordVisibility() {
             const apiKeyInput = document.getElementById('apiKey');
@@ -186,14 +200,15 @@
 
         // Handle form submission
         document.getElementById('submitBtn').addEventListener('click', async () => {
-            const apiKey = document.getElementById('apiKey').value.trim();
+            // Use the API key from the environment variable if available, otherwise from the input
+            const apiKey = OPENROUTER_API_KEY || document.getElementById('apiKey').value.trim();
             const prompt = document.getElementById('prompt').value.trim();
             const responseDiv = document.getElementById('response');
             const loading = document.getElementById('loading');
             const submitBtn = document.getElementById('submitBtn');
             
-            if (!apiKey) {
-                alert('Please enter your OpenRouter API key');
+            if (!apiKey || apiKey === 'your-api-key-here') {
+                alert('Please set your OpenRouter API key in the .env file or in the input field');
                 return;
             }
             
