@@ -155,7 +155,7 @@ class ModernGallery {
         this.stopAutoPlay();
         this.autoPlayInterval = setInterval(() => {
             this.nextSlide();
-        }, 5000);
+        }, 3500);
     }
 
     stopAutoPlay() {
