@@ -480,6 +480,21 @@ section {
 .category-icon {
     font-size: 3rem;
     margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.category-icon img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+}
+
+.category-item:hover .category-icon img {
+    transform: scale(1.05);
 }
 
 .category-name {
