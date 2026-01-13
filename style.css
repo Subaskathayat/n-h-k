@@ -8,17 +8,22 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    color: #333;
-    background-color: #f9f7f4; /* Cream background */
+    color: var(--text-primary);
+    background-color: var(--cream-bg);
 }
 
-/* Color palette */
+/* Color palette - Premium Goa Resort Theme */
 :root {
-    --olive-green: #6b8e23;
-    --cream: #f9f7f4;
-    --soft-brown: #8b7355;
-    --muted-gold: #d4af37;
-    --white: #ffffff;
+    --teal-primary: #0E7C7B;
+    --cream-bg: #FFF8EE;
+    --soft-gold: #D4AF37;
+    --text-primary: #2C2C2C;
+    --text-muted: #6B6B6B;
+    --white: #FFF8EE;
+    --olive-green: #0E7C7B; /* Replaced with teal */
+    --cream: #FFF8EE;
+    --soft-brown: #6B6B6B; /* Replaced with muted text */
+    --muted-gold: #D4AF37;
 }
 
 /* Typography */
@@ -29,13 +34,13 @@ h1, h2, h3 {
 
 h1 {
     font-size: 3rem;
-    color: var(--olive-green);
+    color: var(--teal-primary);
 }
 
 h2 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
-    color: var(--olive-green);
+    color: var(--teal-primary);
 }
 
 h3 {
@@ -77,18 +82,18 @@ nav ul li {
 
 nav a {
     text-decoration: none;
-    color: var(--olive-green);
+    color: var(--teal-primary);
     font-weight: 500;
     transition: color 0.3s;
 }
 
 nav a:hover {
-    color: var(--soft-brown);
+    color: var(--soft-gold);
 }
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    background: linear-gradient(135deg, var(--cream-bg) 0%, #f0e6d6 100%);
     padding: 2rem 2rem;
     min-height: 90vh;
     display: flex;
@@ -104,7 +109,7 @@ nav a:hover {
     right: -20%;
     width: 500px;
     height: 500px;
-    background: radial-gradient(circle, rgba(107, 142, 35, 0.1) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(14, 124, 123, 0.1) 0%, transparent 70%);
     border-radius: 50%;
     z-index: 0;
 }
@@ -114,7 +119,7 @@ nav a:hover {
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    gap: 5rem;
     align-items: center;
     position: relative;
     z-index: 1;
@@ -129,14 +134,14 @@ nav a:hover {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: rgba(107, 142, 35, 0.1);
-    color: var(--olive-green);
+    background: rgba(14, 124, 123, 0.1);
+    color: var(--teal-primary);
     padding: 0.75rem 1.5rem;
     border-radius: 50px;
     font-size: 0.9rem;
     font-weight: 600;
     margin-bottom: 2rem;
-    border: 1px solid rgba(107, 142, 35, 0.2);
+    border: 1px solid rgba(14, 124, 123, 0.2);
     animation: fadeInUp 0.6s ease-out;
 }
 
@@ -147,7 +152,7 @@ nav a:hover {
 .hero h1 {
     font-size: 4rem;
     font-weight: 800;
-    background: linear-gradient(135deg, var(--olive-green) 0%, #4a5d1a 100%);
+    background: linear-gradient(135deg, var(--teal-primary) 0%, #0a5c5b 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -158,7 +163,7 @@ nav a:hover {
 
 .hero-subtitle {
     font-size: 1.25rem;
-    color: #64748b;
+    color: var(--text-muted);
     margin-bottom: 3rem;
     line-height: 1.6;
     animation: fadeInUp 1s ease-out;
@@ -179,13 +184,13 @@ nav a:hover {
 .stat-number {
     font-size: 2.5rem;
     font-weight: 800;
-    color: var(--olive-green);
+    color: var(--teal-primary);
     line-height: 1;
 }
 
 .stat-label {
     font-size: 0.9rem;
-    color: #64748b;
+    color: var(--text-muted);
     font-weight: 500;
 }
 
@@ -198,7 +203,7 @@ nav a:hover {
 }
 
 .cta-primary {
-    background: linear-gradient(135deg, var(--olive-green) 0%, #4a5d1a 100%);
+    background: linear-gradient(135deg, var(--teal-primary) 0%, #0a5c5b 100%);
     color: var(--white);
     padding: 1rem 2rem;
     border: none;
@@ -207,19 +212,19 @@ nav a:hover {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 10px 30px rgba(107, 142, 35, 0.3);
+    box-shadow: 0 10px 30px rgba(14, 124, 123, 0.3);
 }
 
 .cta-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 15px 40px rgba(107, 142, 35, 0.4);
+    box-shadow: 0 15px 40px rgba(14, 124, 123, 0.4);
 }
 
 .cta-secondary {
     background: var(--white);
-    color: var(--olive-green);
+    color: var(--teal-primary);
     padding: 1rem 2rem;
-    border: 2px solid var(--olive-green);
+    border: 2px solid var(--teal-primary);
     border-radius: 12px;
     font-size: 1.1rem;
     font-weight: 600;
@@ -228,7 +233,7 @@ nav a:hover {
 }
 
 .cta-secondary:hover {
-    background: var(--olive-green);
+    background: var(--teal-primary);
     color: var(--white);
     transform: translateY(-2px);
 }
@@ -247,8 +252,8 @@ nav a:hover {
 }
 
 .hero-chef-image {
-    width: 400px;
-    height: 400px;
+    width: 500px;
+    height: 500px;
     border-radius: 24px;
     object-fit: cover;
     box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
@@ -268,7 +273,7 @@ nav a:hover {
     gap: 1rem;
     min-width: 200px;
     animation: float 3s ease-in-out infinite;
-    border: 1px solid rgba(107, 142, 35, 0.1);
+    border: 1px solid rgba(14, 124, 123, 0.1);
 }
 
 .card-icon {
@@ -297,38 +302,38 @@ nav a:hover {
 .card-title {
     font-size: 1rem;
     font-weight: 700;
-    color: var(--olive-green);
+    color: var(--teal-primary);
     margin-bottom: 0.25rem;
 }
 
 .card-subtitle {
     font-size: 0.85rem;
-    color: #64748b;
+    color: var(--text-muted);
     font-weight: 500;
 }
 
 /* Individual Card Positions */
 .card-recipes {
-    top: 10%;
-    right: -10%;
+    top: 15%;
+    right: -15%;
     animation-delay: 0s;
 }
 
 .card-experience {
-    bottom: 20%;
-    left: -15%;
+    bottom: 25%;
+    left: -20%;
     animation-delay: 0.5s;
 }
 
 .card-specialty {
-    top: 50%;
-    right: -20%;
+    top: 45%;
+    right: -25%;
     animation-delay: 1s;
 }
 
 .card-rating {
-    bottom: 5%;
-    right: -5%;
+    bottom: 10%;
+    right: -10%;
     animation-delay: 1.5s;
 }
 
@@ -376,7 +381,7 @@ section {
 
 /* Featured Content */
 .featured-content {
-    background-color: var(--cream);
+    background-color: var(--cream-bg);
 }
 
 .featured-content h2 {
@@ -414,7 +419,7 @@ section {
 }
 
 .recipe-category {
-    background-color: var(--olive-green);
+    background-color: var(--teal-primary);
     color: var(--white);
     padding: 0.3rem 0.8rem;
     border-radius: 15px;
@@ -426,11 +431,11 @@ section {
 .recipe-title {
     font-size: 1.3rem;
     margin-bottom: 0.5rem;
-    color: var(--olive-green);
+    color: var(--teal-primary);
 }
 
 .recipe-description {
-    color: #666;
+    color: var(--text-muted);
     margin-bottom: 1rem;
 }
 
@@ -438,7 +443,7 @@ section {
     display: flex;
     justify-content: space-between;
     font-size: 0.9rem;
-    color: var(--soft-brown);
+    color: var(--text-muted);
 }
 
 /* In My Kitchen */
@@ -458,7 +463,7 @@ section {
 }
 
 .category-item {
-    background-color: var(--olive-green);
+    background-color: var(--teal-primary);
     color: var(--white);
     padding: 2rem;
     border-radius: 15px;
@@ -469,7 +474,7 @@ section {
 
 .category-item:hover {
     transform: translateY(-5px);
-    background-color: var(--soft-brown);
+    background-color: var(--soft-gold);
 }
 
 .category-icon {
@@ -484,7 +489,7 @@ section {
 
 /* Gallery */
 .gallery {
-    background-color: var(--cream);
+    background-color: var(--cream-bg);
 }
 
 .gallery h2 {
@@ -542,77 +547,36 @@ section {
     margin-bottom: 3rem;
 }
 
-.seasonal-scroll {
-    display: flex;
-    overflow-x: auto;
-    gap: 2rem;
-    padding-bottom: 1rem;
-}
-
 .seasonal-card {
     min-width: 300px;
-    background-color: var(--cream);
+    background-color: var(--cream-bg);
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     transition: transform 0.3s;
 }
 
-.seasonal-card:hover {
-    transform: translateY(-5px);
-}
-
-.seasonal-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.seasonal-card-content {
-    padding: 1.5rem;
-}
-
 .seasonal-title {
     font-size: 1.2rem;
     margin-bottom: 0.5rem;
-    color: var(--olive-green);
+    color: var(--teal-primary);
 }
 
 .seasonal-description {
-    color: #666;
+    color: var(--text-muted);
     font-size: 0.9rem;
 }
 
 /* Footer */
 footer {
-    background-color: var(--olive-green);
+    background-color: var(--teal-primary);
     color: var(--white);
     padding: 3rem 2rem 1rem;
 }
 
-.footer-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-bottom: 2rem;
-}
-
-.footer-description {
-    font-size: 1.1rem;
-    line-height: 1.6;
-}
-
 .footer-links h3 {
     margin-bottom: 1rem;
-    color: var(--cream);
-}
-
-.footer-links ul {
-    list-style: none;
-}
-
-.footer-links li {
-    margin-bottom: 0.5rem;
+    color: var(--cream-bg);
 }
 
 .footer-links a {
@@ -622,35 +586,22 @@ footer {
 }
 
 .footer-links a:hover {
-    color: var(--muted-gold);
+    color: var(--soft-gold);
 }
 
 .newsletter {
-    background-color: var(--cream);
+    background-color: var(--cream-bg);
     padding: 2rem;
     border-radius: 15px;
 }
 
 .newsletter h3 {
-    color: var(--olive-green);
+    color: var(--teal-primary);
     margin-bottom: 1rem;
 }
 
-.newsletter-form {
-    display: flex;
-    gap: 1rem;
-}
-
-.newsletter input {
-    flex: 1;
-    padding: 0.8rem;
-    border: none;
-    border-radius: 25px;
-    font-size: 1rem;
-}
-
 .newsletter button {
-    background-color: var(--olive-green);
+    background-color: var(--teal-primary);
     color: var(--white);
     border: none;
     padding: 0.8rem 1.5rem;
@@ -660,21 +611,14 @@ footer {
 }
 
 .newsletter button:hover {
-    background-color: var(--soft-brown);
-}
-
-.footer-bottom {
-    text-align: center;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(255,255,255,0.2);
-    font-size: 0.9rem;
+    background-color: var(--soft-gold);
 }
 
 /* Responsive */
 @media (max-width: 1024px) {
     .hero .container {
         grid-template-columns: 1fr;
-        gap: 3rem;
+        gap: 4rem;
         text-align: center;
     }
     
@@ -688,8 +632,8 @@ footer {
     }
     
     .hero-chef-image {
-        width: 350px;
-        height: 350px;
+        width: 450px;
+        height: 450px;
     }
     
     .floating-card {
@@ -698,23 +642,23 @@ footer {
     }
     
     .card-recipes {
-        top: 5%;
-        right: -5%;
+        top: 10%;
+        right: -8%;
     }
     
     .card-experience {
-        bottom: 15%;
-        left: -10%;
+        bottom: 20%;
+        left: -12%;
     }
     
     .card-specialty {
         top: 45%;
-        right: -15%;
+        right: -18%;
     }
     
     .card-rating {
-        bottom: 0%;
-        right: -2%;
+        bottom: 5%;
+        right: -5%;
     }
 }
 
@@ -744,8 +688,8 @@ footer {
     
 
     .hero-chef-image {
-        width: 300px;
-        height: 300px;
+        width: 350px;
+        height: 350px;
     }
     
     .floating-card {
@@ -772,8 +716,8 @@ footer {
     }
     
     .hero-chef-image {
-        width: 250px;
-        height: 250px;
+        width: 280px;
+        height: 280px;
         border-radius: 16px;
     }
     
