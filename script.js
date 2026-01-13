@@ -9,6 +9,14 @@ function scrollToContact() {
     }
 }
 
+// Smooth scroll to top of page
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
 // Load hCaptcha script dynamically
 (function() {
     const script = document.createElement('script');
