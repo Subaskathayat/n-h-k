@@ -1,3 +1,14 @@
+// Smooth scroll to contact section
+function scrollToContact() {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+        contactSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+}
+
 // Load hCaptcha script dynamically
 (function() {
     const script = document.createElement('script');
