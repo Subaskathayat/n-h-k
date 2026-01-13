@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Narhari Kathayat - Master Chef</title>
     <link rel="stylesheet" href="style.css">
+
+    <!--For mailerlite form-->
+    <!-- MailerLite Universal -->
+<script>
+  (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[]).push(arguments);};l=d.createElement(e);l.async=1;l.src=u;n=d.getElementsByTagName(e)[0];n.parentNode.insertBefore(l,n);})(window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+  ml('account', '2035488');
+</script>
+<!-- End MailerLite Universal -->
     
 </head>
 <body>
@@ -47,8 +55,8 @@
                 </div>
                 
                 <div class="hero-cta">
-                    <button class="cta-primary">Explore My Recipes</button>
-                    <button class="cta-secondary">Contact Me</button>
+                    <button class="cta-primary">Explore Recipes</button>
+                    <button class="cta-secondary">Contact</button>
                 </div>
             </div>
             
@@ -358,41 +366,72 @@
         </div>
     </section>
 
-    <!-- Newsletter Section -->
-    <section class="newsletter-section">
+    <!-- About Section -->
+    <section class="about-section">
         <div class="container">
-            <div class="newsletter-content">
-                <h2>Stay Updated</h2>
-                <p>Get the latest recipes and culinary tips delivered to your inbox.</p>
-                <form class="newsletter-form">
-                    <input type="email" placeholder="Your email address" required>
-                    <button type="submit">Subscribe</button>
-                </form>
+            <div class="about-content">
+                <h2>About Chef Narhari Kathayat</h2>
+                <p>With over 15 years of culinary excellence, Chef Narhari Kathayat brings authentic Nepali flavors and continental cuisine to life. Specializing in intricate fruit carving and food art, each dish is a masterpiece that celebrates tradition while embracing innovation.</p>
             </div>
         </div>
     </section>
-
+        
+   <!-- footer-description  -->
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-description">
-                    <p>"Celebrating food, tradition, and art from the heart of the kitchen."</p>
+                <div class="footer-left">
+                    <div class="footer-description">
+                        <p >"Celebrating food, tradition, and art from the heart of the kitchen."</p>
+                    </div>
+                    <div class="footer-links">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li><a href="#home">Home</a></li>
+                            <li><a href="#recipes">Recipes</a></li>
+                            <li><a href="#gallery">Gallery</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="footer-links">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#recipes">Recipes</a></li>
-                        <li><a href="#gallery">Gallery</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
+                <div class="footer-form">
+                    
+                    <section class="subscribe-section">
+                        <div class="subscribe-content">
+                            <h4 id="contact">Contact Me</h4>
+                            <p>Send me a message and I'll get back to you soon!</p>
+                            
+                            <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+                                <input type="hidden" name="access_key" value="e2600e91-337c-4219-9f72-5dab2fcdcea0">
+                                
+                                <div class="form-group">
+                                    <input type="text" name="name" placeholder="Your Full Name" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <input type="email" name="email" placeholder="Your Email address" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <textarea name="message" placeholder="Your Message" rows="4" required></textarea>
+                                </div>
+                                
+                                <div class="cf-turnstile" data-sitekey="0x4AAAAAABqgkMEaDYSIeO8i"></div>
+                                
+                                <button type="submit" class="submit-btn">Send Message</button>
+                            </form>
+                        </div>
+                    </section>
                 </div>
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2024 Narhari Kathayat. All rights reserved.</p>
             </div>
         </div>
+    </footer>
+    
     <script src="gallery.js"></script>
     <script src="script.js"></script>
+
 </body>
 </html>
