@@ -49,3 +49,10 @@ form.addEventListener('submit', async (e) => {
 
 cloudfare site key : 0x4AAAAAABqgkMEaDYSIeO8i
 cloudfare secret key : 0x4AAAAAABqgkGZMwcTQhYm51agwSjxgP20
+
+//hCaptcha site key
+
+<form method="POST">
+  <div class="h-captcha" data-sitekey="9e42c41e-5364-4a26-8666-bcf6fb9e92be"></div>
+  <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+</form>

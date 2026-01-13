@@ -1,7 +1,7 @@
-// Load Cloudflare Turnstile script dynamically
+// Load hCaptcha script dynamically
 (function() {
     const script = document.createElement('script');
-    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+    script.src = 'https://js.hcaptcha.com/1/api.js';
     script.async = true;
     script.defer = true;
     document.head.appendChild(script);
