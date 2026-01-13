@@ -14,3 +14,5 @@ No artificial glow, no cartoon effect.
 
 .gitignore
 .env
+env
+gitignore
