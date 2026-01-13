@@ -15,7 +15,7 @@ form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const formData = new FormData(form);
-    formData.append("access_key", "e2600e91-337c-4219-9f72-5dab2fcdcea0");
+    // Access key is already in the hidden input, no need to append
 
     const originalText = submitBtn.textContent;
 
