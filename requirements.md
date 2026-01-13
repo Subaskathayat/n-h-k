@@ -1,219 +1,201 @@
-✅ FULL STRUCTURE DESCRIPTION (HTML + CSS + JS)
-Project: PromptBrary
+Website Requirements
+Personal Brand Website – Chef Narhari Kathayat
+1. General Requirements
 
-This document defines the layout, components, and interactions needed to build the basic structure of the app.
+Website must represent Chef Narhari Kathayat as a professional chef and food artist
 
-1️⃣ Page Layout Overview
+Focus on personal branding and recipe blogging
 
-The app layout is divided into three main sections:
+Design must feel professional, warm, family-oriented, modern, and minimal
 
-A. Left Sidebar
+Clean layout with ample white space and smooth user experience
 
-A vertical navigation sidebar.
+Fully responsive (desktop, tablet, mobile)
 
-B. Center Panel
+2. Visual Design Requirements
 
-Contains the user input field (raw prompt).
+Color Palette:
 
-C. Right Panel
+Primary: Olive green and cream
 
-Displays the enhanced / optimized prompt output.
+Secondary: Nepali-inspired earthy tones (soft browns, muted gold accents)
 
-The layout is a three-column flexbox, with the sidebar having a fixed width and the other two panels expanding fluidly.
+Typography:
 
-2️⃣ Left Sidebar Structure
-Purpose
+Bold, modern font for headings
 
-Navigation and app organization.
+Clean sans-serif font for body text
 
-Content
+Rounded corners on cards and buttons
 
-App Name / Logo area (top)
+Soft shadows and subtle hover animations
 
-Navigation Items
+High-quality food and portrait imagery
 
-Prompt Enhancer
+3. Header & Navigation
 
-Social Media Content
+Logo or text-based brand name: Chef Narhari Kathayat
 
-History
+Navigation menu items:
 
-Saved
+Home
 
-Footer Logo / Branding (bottom)
+Recipes
 
-Behavior
+Gallery
 
-Clicking a navigation item switches the center+right panel content.
+Contact
 
-Active item is highlighted.
+Sticky or fixed navigation bar on scroll
 
-Sidebar styling
+4. Hero Section
 
-Fixed width (250px recommended).
+Large prominent heading: Narhari Kathayat
 
-Full height (100vh).
+Subheading:
 
-Light background (#f7f7f7 or white).
+Master Chef of Nepali & Continental Cuisine | Food Art & Fruit Carving
 
-Icons optional.
+Professional chef portrait image
 
-3️⃣ Center Panel Structure (User Input Panel)
-Purpose
+Category tags or pills:
 
-User enters their raw text that needs enhancement.
+Nepali
 
-Content
+Continental
 
-Title: “What would you like to enhance?”
+Food Art
 
-A large textarea for input.
+Fruit Carving
 
-Dropdown: “Choose Model” (ChatGPT, Claude, Generic)
+Primary call-to-action button: Explore Recipes
 
-Button: Enhance Prompt (primary action)
+5. Featured Content Section
 
-Behavior
+Card-based layout for featured recipes and blog posts
 
-Clicking Enhance sends the text for processing (handled by JS or later API).
+Each card must include:
 
-After enhancement, the right panel updates.
+Food image
 
-Styling
+Category label
 
-White card/container.
+Title
 
-Rounded corners & subtle shadows.
+Short description
 
-Padding ~ 24px.
+Reading time
 
-Vertical spacing between elements.
+Author name (Narhari Kathayat)
 
-4️⃣ Right Panel Structure (Output Panel)
-Purpose
+6. “In My Kitchen” Categories Section
 
-Displays the optimized / enhanced prompt.
+Icon-based category navigation for:
 
-Content
+Nepali Recipes
 
-Title: “Your Enhanced Prompt”
+Continental
 
-Output area (scrollable)
+Breakfast
 
-Buttons:
+Dinner
 
-Copy
+Desserts
 
-Save
+Food Art
 
-Re-Enhance (optional)
+Fruit Carving
 
-Behavior
+Minimal icon design with rounded containers
 
-Copy: Copies enhanced prompt to clipboard.
+7. Gallery Section
 
-Save: Stores to LocalStorage → appears under “Saved”.
+Dedicated photo gallery showcasing:
 
-Re-enhance: Sends the enhanced prompt back into the center panel’s textarea for another pass.
+Finished dishes
 
-Styling
+Traditional Nepali meals
 
-White card.
+Food art and fruit carving
 
-Scrollable content.
+Grid or masonry layout
 
-Buttons at top-right.
+Hover effects (zoom, overlay text)
 
-5️⃣ Navigation Pages
+8. Seasonal / Special Recipes Section
 
-The four pages in sidebar should switch only the content inside the center and right panels.
+Section highlighting seasonal or special dishes
 
-Page 1: Prompt Enhancer (default)
+Recipe cards with:
 
-Center: input textarea
+Dish image
 
-Right: enhanced output
+Dish name
 
-Page 2: Social Media Content
+Short description
 
-Center:
+Horizontal scroll or grid layout
 
-Options such as: Instagram caption, X post, LinkedIn post
+9. Footer Requirements
 
-Input fields based on selection
+Short brand description or tagline
 
-Right:
+Navigation links repeated:
 
-Generated social content
+Home
 
-Page 3: History
+Recipes
 
-Shows a list of previously generated content
-(stored in LocalStorage)
+Gallery
 
-Page 4: Saved
+Contact
 
-Shows saved enhanced prompts
-(stored in LocalStorage)
+Newsletter subscription form:
 
-6️⃣ JavaScript Basic Logic
-A. Navigation Switching
+Email input field
 
-Add event listeners to sidebar items.
+Subscribe button
 
-When clicked → hide other panels, show correct panel content.
+Clean cream background with olive accents
 
-B. Prompt Enhancement Logic
+10. Content Requirements
 
-For now, dummy function:
+Primary focus on:
 
-function enhancePrompt(rawText) {
-   return "Enhanced version: " + rawText;
-}
+Recipes
 
+Photo gallery
 
-Later you will replace with AI API calls.
+Food art and fruit carving
 
-C. Copy Function
+Content tone must be:
 
-Use navigator.clipboard.writeText().
+Warm
 
-D. Save Function
+Respectful
 
-Save enhanced prompt to LocalStorage array named savedPrompts.
+Family-oriented
 
-E. History System
+Professional
 
-Every enhancement → save input + output + timestamp to history.
+Simple, easy-to-read language
 
-7️⃣ Recommended CSS Structure
+11. Performance & UX
 
-Use:
+Fast loading images (optimized)
 
-Flexbox for layout
+Smooth scrolling and animations
 
-Grid inside cards if needed
+Clear visual hierarchy
 
-CSS variables for theme
+Accessible font sizes and contrast
 
-Layout Example
-.container {
-  display: flex;
-  height: 100vh;
-}
+12. Optional Enhancements (Nice-to-Have)
 
-.sidebar {
-  width: 250px;
-}
+Recipe filtering by category
 
-.main {
-  flex: 1;
-  display: flex;
-}
+Search functionality
 
-.center-panel {
-  flex: 1;
-}
-.right-panel {
-  flex: 1;
-}
+Light animations on scroll
+
+Social media links (Instagram / YouTube food content)
