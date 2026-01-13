@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Narhari Kathayat - Master Chef</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="carousel.css">
     
 </head>
 <body>
@@ -54,7 +55,7 @@
             
             <div class="hero-visual">
                 <div class="hero-image-container">
-                    <img src="img/carving_narhari.png" alt="Chef Narhari Kathayat" class="hero-chef-image">
+                    <img src="img/narhari_kathayat.png" alt="Chef Narhari Kathayat" class="hero-chef-image">
                 </div>
                 
                 <!-- Floating Info Cards -->
@@ -175,42 +176,245 @@
 
     <section id="gallery" class="gallery">
         <div class="container">
-            <h2>Gallery</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="https://via.placeholder.com/300x250/6b8e23/ffffff?text=Nepali+Dish" alt="Nepali Dish">
-                    <div class="gallery-overlay">
-                        <h4>Traditional Nepali Thukpa</h4>
+            <h2>Fruit Carving Gallery</h2>
+            
+            <!-- Carousel Section -->
+            <div class="gallery-carousel">
+                <div class="carousel-container">
+                    <div class="carousel-track" id="carouselTrack">
+                        <div class="carousel-slide" data-index="0">
+                            <img src="img/carving8.png" alt="Watermelon Art" loading="lazy">
+                            <div class="carousel-caption">
+                                <h4>Watermelon Masterpiece</h4>
+                                <p>Intricate floral watermelon carving</p>
+                            </div>
+                        </div>
+                        <div class="carousel-slide" data-index="1">
+                            <img src="img/grid1.png" alt="Grid Art 1" loading="lazy">
+                            <div class="carousel-caption">
+                                <h4>Artistic Creation</h4>
+                                <p>Unique design showcase</p>
+                            </div>
+                        </div>
+                        <div class="carousel-slide" data-index="2">
+                            <img src="img/carving1.jpeg" alt="Exotic Carving" loading="lazy">
+                            <div class="carousel-caption">
+                                <h4>Exotic Design</h4>
+                                <p>Premium fruit carving artistry</p>
+                            </div>
+                        </div>
+                        <div class="carousel-slide" data-index="3">
+                            <img src="img/carving2.png" alt="Flower Carving" loading="lazy">
+                            <div class="carousel-caption">
+                                <h4>Floral Elegance</h4>
+                                <p>Delicate flower patterns</p>
+                            </div>
+                        </div>
+                        <div class="carousel-slide" data-index="4">
+                            <img src="img/carving3.png" alt="Centerpiece Art" loading="lazy">
+                            <div class="carousel-caption">
+                                <h4>Centerpiece Creation</h4>
+                                <p>Stunning table centerpiece</p>
+                            </div>
+                        </div>
+                        <div class="carousel-slide" data-index="5">
+                            <img src="img/carving4.png" alt="Detailed Carving" loading="lazy">
+                            <div class="carousel-caption">
+                                <h4>Detailed Craftsmanship</h4>
+                                <p>Precision carving techniques</p>
+                            </div>
+                        </div>
+                        <div class="carousel-slide" data-index="6">
+                            <img src="img/carving5.png" alt="Artistic Design" loading="lazy">
+                            <div class="carousel-caption">
+                                <h4>Artistic Vision</h4>
+                                <p>Creative fruit sculpture</p>
+                            </div>
+                        </div>
+                        <div class="carousel-slide" data-index="7">
+                            <img src="img/carving6.png" alt="Premium Carving" loading="lazy">
+                            <div class="carousel-caption">
+                                <h4>Premium Artwork</h4>
+                                <p>High-end fruit carving</p>
+                            </div>
+                        </div>
+                        <div class="carousel-slide" data-index="8">
+                            <img src="img/grid2.png" alt="Grid Art 2" loading="lazy">
+                            <div class="carousel-caption">
+                                <h4>Creative Design</h4>
+                                <p>Artistic expression showcase</p>
+                            </div>
+                        </div>
+                        <div class="carousel-slide" data-index="9">
+                            <img src="img/grid3.png" alt="Grid Art 3" loading="lazy">
+                            <div class="carousel-caption">
+                                <h4>Modern Art</h4>
+                                <p>Contemporary style showcase</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="https://via.placeholder.com/300x250/d4af37/000000?text=Fruit+Carving" alt="Fruit Carving">
-                    <div class="gallery-overlay">
-                        <h4>Watermelon Basket</h4>
+                <div class="carousel-progress">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <div class="carousel-dots" id="carouselDots"></div>
+            </div>
+
+            <!-- Masonry Grid Section -->
+            <div class="gallery-masonry">
+                <div class="masonry-grid" id="masonryGrid">
+                    <div class="masonry-item masonry-item--large" data-index="0">
+                        <img src="img/carving8.png" alt="Watermelon Art" loading="lazy">
+                        <div class="masonry-overlay">
+                            <h4>Watermelon Masterpiece</h4>
+                            <span>Floral carving</span>
+                        </div>
+                    </div>
+                    <div class="masonry-item masonry-item--tall" data-index="1">
+                        <img src="img/grid1.png" alt="Grid Art 1" loading="lazy">
+                        <div class="masonry-overlay">
+                            <h4>Artistic Creation</h4>
+                            <span>Unique design</span>
+                        </div>
+                    </div>
+                    <div class="masonry-item masonry-item--wide" data-index="2">
+                        <img src="img/carving1.jpeg" alt="Exotic Carving" loading="lazy">
+                        <div class="masonry-overlay">
+                            <h4>Exotic Design</h4>
+                            <span>Premium artistry</span>
+                        </div>
+                    </div>
+                    <div class="masonry-item masonry-item--small" data-index="3">
+                        <img src="img/carving2.png" alt="Flower Carving" loading="lazy">
+                        <div class="masonry-overlay">
+                            <h4>Floral Elegance</h4>
+                            <span>Delicate patterns</span>
+                        </div>
+                    </div>
+                    <div class="masonry-item masonry-item--large" data-index="4">
+                        <img src="img/carving3.png" alt="Centerpiece Art" loading="lazy">
+                        <div class="masonry-overlay">
+                            <h4>Centerpiece Creation</h4>
+                            <span>Table centerpiece</span>
+                        </div>
+                    </div>
+                    <div class="masonry-item masonry-item--small" data-index="5">
+                        <img src="img/carving4.png" alt="Detailed Carving" loading="lazy">
+                        <div class="masonry-overlay">
+                            <h4>Detailed Craft</h4>
+                            <span>Precision work</span>
+                        </div>
+                    </div>
+                    <div class="masonry-item masonry-item--tall" data-index="6">
+                        <img src="img/carving5.png" alt="Artistic Design" loading="lazy">
+                        <div class="masonry-overlay">
+                            <h4>Artistic Vision</h4>
+                            <span>Creative sculpture</span>
+                        </div>
+                    </div>
+                    <div class="masonry-item masonry-item--wide" data-index="7">
+                        <img src="img/carving6.png" alt="Premium Carving" loading="lazy">
+                        <div class="masonry-overlay">
+                            <h4>Premium Artwork</h4>
+                            <span>High-end carving</span>
+                        </div>
+                    </div>
+                    <div class="masonry-item masonry-item--small" data-index="8">
+                        <img src="img/grid2.png" alt="Grid Art 2" loading="lazy">
+                        <div class="masonry-overlay">
+                            <h4>Creative Design</h4>
+                            <span>Artistic expression</span>
+                        </div>
+                    </div>
+                    <div class="masonry-item masonry-item--large" data-index="9">
+                        <img src="img/carving_narhari.jpeg" alt="Artist Portfolio" loading="lazy">
+                        <div class="masonry-overlay">
+                            <h4>Portfolio Piece</h4>
+                            <span>Professional showcase</span>
+                        </div>
+                    </div>
+                    <div class="masonry-item masonry-item--tall" data-index="0">
+                        <img src="img/grid5.png" alt="Food Art Creation" loading="lazy">
+                        <div class="masonry-overlay">
+                            <h4>Food Art Creation</h4>
+                            <span>Culinary masterpiece</span>
+                        </div>
+                    </div>
+                    <div class="masonry-item masonry-item--wide" data-index="1">
+                        <img src="img/grid3.png" alt="Grid Art 3" loading="lazy">
+                        <div class="masonry-overlay">
+                            <h4>Modern Art</h4>
+                            <span>Contemporary style</span>
+                        </div>
+                    </div>
+                    <div class="masonry-item masonry-item--small" data-index="2">
+                        <img src="img/food_art_recipe.png" alt="Artistic Recipe" loading="lazy">
+                        <div class="masonry-overlay">
+                            <h4>Artistic Recipe</h4>
+                            <span>Creative presentation</span>
+                        </div>
                     </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="https://via.placeholder.com/300x250/8b7355/ffffff?text=Food+Art" alt="Food Art">
-                    <div class="gallery-overlay">
-                        <h4>Edible Flower Arrangement</h4>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Carousel/Crowsell Section -->
+    <section class="interactive-carousel-section">
+        <div class="container">
+            <h2>Featured Culinary Showcase</h2>
+            
+            <div class="interactive-carousel">
+                <div class="carousel-track">
+                    <div class="carousel-item">
+                        <img src="img/grid1.png" alt="Artistic Creation" loading="lazy">
+                        <h4>Artistic Creation</h4>
+                        <p>Unique design showcase featuring intricate fruit carving techniques</p>
                     </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://via.placeholder.com/300x250/6b8e23/ffffff?text=Continental+Dish" alt="Continental Dish">
-                    <div class="gallery-overlay">
-                        <h4>Grilled Salmon with Herbs</h4>
+                    <div class="carousel-item">
+                        <img src="img/grid2.png" alt="Creative Design" loading="lazy">
+                        <h4>Creative Design</h4>
+                        <p>Modern artistic expression with contemporary culinary art</p>
                     </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://via.placeholder.com/300x250/d4af37/000000?text=Dessert" alt="Dessert">
-                    <div class="gallery-overlay">
-                        <h4>Chocolate Lava Cake</h4>
+                    <div class="carousel-item">
+                        <img src="img/grid3.png" alt="Modern Art" loading="lazy">
+                        <h4>Modern Art</h4>
+                        <p>Contemporary style showcasing advanced carving techniques</p>
                     </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://via.placeholder.com/300x250/8b7355/ffffff?text=Breakfast" alt="Breakfast">
-                    <div class="gallery-overlay">
-                        <h4>Nepali Sel Roti</h4>
+                    <div class="carousel-item">
+                        <img src="img/grid5.png" alt="Food Art Creation" loading="lazy">
+                        <h4>Food Art Creation</h4>
+                        <p>Culinary masterpiece combining flavors and visual appeal</p>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="img/carving8.png" alt="Watermelon Masterpiece" loading="lazy">
+                        <h4>Watermelon Masterpiece</h4>
+                        <p>Intricate floral watermelon carving demonstration</p>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="img/carving1.jpeg" alt="Exotic Design" loading="lazy">
+                        <h4>Exotic Design</h4>
+                        <p>Premium fruit carving artistry with exotic fruits</p>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="img/carving2.png" alt="Floral Elegance" loading="lazy">
+                        <h4>Floral Elegance</h4>
+                        <p>Delicate flower patterns carved with precision</p>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="img/carving3.png" alt="Centerpiece Creation" loading="lazy">
+                        <h4>Centerpiece Creation</h4>
+                        <p>Stunning table centerpiece for special occasions</p>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="img/carving4.png" alt="Detailed Craftsmanship" loading="lazy">
+                        <h4>Detailed Craftsmanship</h4>
+                        <p>Precision carving techniques and fine details</p>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="img/carving5.png" alt="Artistic Vision" loading="lazy">
+                        <h4>Artistic Vision</h4>
+                        <p>Creative fruit sculpture with artistic flair</p>
                     </div>
                 </div>
             </div>
@@ -281,9 +485,8 @@
                 <p>&copy; 2024 Narhari Kathayat. All rights reserved.</p>
             </div>
         </div>
+    <script src="carousel.js"></script>
+    <script src="gallery.js"></script>
     <script src="script.js"></script>
-</body>
-</html>
-    </footer>
 </body>
 </html>
