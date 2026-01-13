@@ -812,34 +812,69 @@ section {
     }
 }
 
-/* Seasonal Recipes */
-.seasonal-recipes {
-    background-color: var(--white);
-}
-
-.seasonal-recipes h2 {
+/* Newsletter Section */
+.newsletter-section {
+    background: linear-gradient(135deg, var(--teal-primary) 0%, #0e7c7b 100%);
+    color: var(--white);
+    padding: 4rem 2rem;
     text-align: center;
-    margin-bottom: 3rem;
 }
 
-.seasonal-card {
-    min-width: 300px;
-    background-color: var(--cream-bg);
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s;
+.newsletter-content {
+    max-width: 600px;
+    margin: 0 auto;
 }
 
-.seasonal-title {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
+.newsletter-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--white);
+}
+
+.newsletter-section p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.newsletter-form {
+    display: flex;
+    gap: 1rem;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.newsletter-form input {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.9);
     color: var(--teal-primary);
 }
 
-.seasonal-description {
-    color: var(--text-muted);
-    font-size: 0.9rem;
+.newsletter-form input::placeholder {
+    color: rgba(14, 124, 123, 0.6);
+}
+
+.newsletter-form button {
+    background-color: var(--soft-gold);
+    color: var(--white);
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.newsletter-form button:hover {
+    background-color: #d4af37;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
 }
 
 /* Footer */
@@ -862,31 +897,6 @@ footer {
 
 .footer-links a:hover {
     color: var(--soft-gold);
-}
-
-.newsletter {
-    background-color: var(--cream-bg);
-    padding: 2rem;
-    border-radius: 15px;
-}
-
-.newsletter h3 {
-    color: var(--teal-primary);
-    margin-bottom: 1rem;
-}
-
-.newsletter button {
-    background-color: var(--teal-primary);
-    color: var(--white);
-    border: none;
-    padding: 0.8rem 1.5rem;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.newsletter button:hover {
-    background-color: var(--soft-gold);
 }
 
 /* Responsive */
@@ -1014,10 +1024,6 @@ footer {
 
     .category-grid {
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    }
-
-    .seasonal-scroll {
-        padding-left: 2rem;
     }
 
     .newsletter-form {
