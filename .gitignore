@@ -78,7 +78,7 @@ coverage/
 git add .
 git commit -m "update"
 git push origin main
-
+ 
 //for making professional photography
 Edit this photo to look like a high-end professional food photography shot.
 Improve lighting to soft, even studio lighting.
@@ -88,3 +88,4 @@ Remove background distractions and replace with a clean, neutral white backgroun
 Add subtle depth of field (background slightly blurred).
 Maintain realism add little texture— change the serving design and bowl design.
 No artificial glow, no cartoon effect.
+check
