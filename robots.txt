@@ -1,7 +1,3 @@
-
 User-agent: *
 Allow: /
-Sitemap: https://subaskathayat.com.np/sitemap.xml
-
-# Allow search engines to crawl important directories
-Allow: /img/
+Sitemap: https://narharikathayat.com.np/sitemap.xml
