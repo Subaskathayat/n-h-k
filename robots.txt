@@ -1,45 +1,7 @@
-# Robots.txt for Narhari Kathayat - Master Chef Website
-# Generated on: 2026-01-14
 
 User-agent: *
 Allow: /
+Sitemap: https://subaskathayat.com.np/sitemap.xml
 
 # Allow search engines to crawl important directories
 Allow: /img/
-Allow: /css/
-Allow: /js/
-
-# Disallow crawling of unnecessary files
-Disallow: /temp/
-Disallow: /private/
-Disallow: /*.json$
-Disallow: /*?* 
-
-# Sitemap location
-Sitemap: https://narharikathayat.com/sitemap.xml
-
-# Crawl delay for respectful crawling
-Crawl-delay: 1
-
-# Specific instructions for major search engines
-User-agent: Googlebot
-Allow: /
-Crawl-delay: 1
-
-User-agent: Bingbot
-Allow: /
-Crawl-delay: 1
-
-User-agent: Slurp
-Allow: /
-Crawl-delay: 1
-
-# Block unwanted bots
-User-agent: AhrefsBot
-Disallow: /
-
-User-agent: MJ12bot
-Disallow: /
-
-User-agent: DotBot
-Disallow: /

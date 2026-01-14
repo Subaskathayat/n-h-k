@@ -1,78 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-    
-    <!-- Homepage -->
-    <url>
-        <loc>https://narharikathayat.com/</loc>
-        <lastmod>2026-01-14</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>1.0</priority>
-        <image:image>
-            <image:loc>https://narharikathayat.com/img/narhari_kathayat.jpeg</image:loc>
-            <image:title>Chef Narhari Kathayat - Master Chef</image:title>
-            <image:caption>Professional Master Chef Narhari Kathayat specializing in Nepali cuisine and food art</image:caption>
-        </image:image>
-    </url>
-    
-    <!-- Recipes Section -->
-    <url>
-        <loc>https://narharikathayat.com/#recipes</loc>
-        <lastmod>2026-01-14</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    <!-- Gallery Section -->
-    <url>
-        <loc>https://narharikathayat.com/#gallery</loc>
-        <lastmod>2026-01-14</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-        <image:image>
-            <image:loc>https://narharikathayat.com/img/carving8.png</image:loc>
-            <image:title>Watermelon Masterpiece - Fruit Carving Art</image:title>
-            <image:caption>Intricate floral watermelon carving by Chef Narhari Kathayat</image:caption>
-        </image:image>
-        <image:image>
-            <image:loc>https://narharikathayat.com/img/carving1.jpeg</image:loc>
-            <image:title>Exotic Fruit Carving Design</image:title>
-            <image:caption>Premium fruit carving artistry by professional chef</image:caption>
-        </image:image>
-    </url>
-    
-    <!-- About Section -->
-    <url>
-        <loc>https://narharikathayat.com/#about</loc>
-        <lastmod>2026-01-14</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    
-    <!-- Contact Section -->
-    <url>
-        <loc>https://narharikathayat.com/#contact</loc>
-        <lastmod>2026-01-14</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    
-    <!-- Featured Recipes -->
-    <url>
-        <loc>https://narharikathayat.com/#featured</loc>
-        <lastmod>2026-01-14</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-        <image:image>
-            <image:loc>https://narharikathayat.com/img/momo.png</image:loc>
-            <image:title>Authentic Nepali Momos Recipe</image:title>
-            <image:caption>Traditional steamed dumplings filled with spiced meat - Nepali classic</image:caption>
-        </image:image>
-        <image:image>
-            <image:loc>https://narharikathayat.com/img/dal-bhat.jpg</image:loc>
-            <image:title>Traditional Dal Bhat Recipe</image:title>
-            <image:caption>Nepal's national dish - lentil soup with rice, vegetables, and pickles</image:caption>
-        </image:image>
-    </url>
-    
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://narharikathayt.com.np/</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
 </urlset>

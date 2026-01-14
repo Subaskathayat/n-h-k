@@ -75,4 +75,7 @@ coverage/
 # GitIgnore itself (to prevent recursive issues)
 .gitignore
 
+#extra files
+
 commands.md
+narhari-sitemap-generator.js
